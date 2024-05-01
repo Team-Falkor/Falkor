@@ -1,4 +1,4 @@
-import { InfoProps } from '@/@types';
+import { InfoItadProps, InfoProps } from '@/@types';
 import IGDBImage from '@/components/IGDBImage';
 import DownloadDialog from '@/components/info/downloadDialog';
 import QuickInfo from '@/components/info/quickInfo';
@@ -6,13 +6,14 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { IGDBReturnDataType } from '@/utils/api/igdb/types';
 import { FC } from 'react';
 
-type InfoTopProps = InfoProps & {
-  data: IGDBReturnDataType | undefined;
-  isReleased: boolean;
-};
+type InfoTopProps = InfoProps &
+  InfoItadProps & {
+    data: IGDBReturnDataType | undefined;
+    isReleased: boolean;
+  };
 
 const InfoTop: FC<InfoTopProps> = (props) => {
-  const { data, isReleased, isPending, error } = props;
+  const { data, isReleased, isPending, error, itadData, itadError, itadPending } = props;
 
   if (error) return null;
 
@@ -40,6 +41,9 @@ const InfoTop: FC<InfoTopProps> = (props) => {
               title={data!.name}
               isReleased={isReleased}
               websites={data!.websites}
+              itadData={itadData}
+              itadError={itadError}
+              itadPending={itadPending}
             />
           )}
         </section>

@@ -38,3 +38,16 @@ export const timeSince = (date: number): string => {
   const years = Math.floor(months / 12); // Difference in years
   return `${years} year${years === 1 ? '' : 's'} ago`;
 };
+
+export const getUserCountry = async (sendDefaultOnError = true): Promise<string> => {
+  try {
+    const response = await fetch('https://ipinfo.io/json');
+    const data = await response.json();
+    const countryCode = data.country;
+    return countryCode;
+  } catch (error) {
+    console.error('Error fetching user country:', error);
+    if (sendDefaultOnError) return 'US';
+    return 'Unknown';
+  }
+};

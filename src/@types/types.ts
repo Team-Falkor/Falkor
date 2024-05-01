@@ -1,3 +1,5 @@
+import { ITADPrice } from '@/utils/api/itad/types';
+
 export type IGDBImageSize =
   | 'original'
   | 'cover_small'
@@ -19,4 +21,10 @@ export interface Provider {
 export interface InfoProps {
   error: Error | null;
   isPending: boolean;
+}
+
+export interface InfoItadProps {
+  itadData: ITADPrice[] | undefined;
+  itadPending: boolean;
+  itadError: Error | null;
 }

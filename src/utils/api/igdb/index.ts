@@ -1,4 +1,5 @@
 import { IGDBReturnDataType } from '@/utils/api/igdb/types';
+import { ITADPrice } from '@/utils/api/itad/types';
 import { http } from '@tauri-apps/api';
 import { Body } from '@tauri-apps/api/http';
 
@@ -28,19 +29,39 @@ export class IGDB {
   checkAndRenewToken = async () => !!(Date.now() >= this.tokenExpiration - 100) && (await this.getAccessToken());
 
   async search(query: string): Promise<IGDBReturnDataType[]> {
-    return await this.makeReq<IGDBReturnDataType[]>('games', {
+    const data = await this.makeReq<IGDBReturnDataType[]>('games', {
       search: query,
     });
+
+    // filter out none pc games and category !== 0
+    return data.filter(
+      (game) =>
+        game.platforms?.some((platform) => platform.abbreviation === 'PC') &&
+        // 0 = main_game
+        (game.category === 0 ||
+          // 8 = remake
+          game.category === 8 ||
+          // 9 = remaster
+          game.category === 9 ||
+          // 10 = expanded_game
+          game.category === 10 ||
+          // 11 = port
+          game.category === 11 ||
+          // 12 = fork
+          game.category === 12),
+    );
   }
 
-  async info(id: string): Promise<IGDBReturnDataType> {
+  async info(id: string): Promise<IGDBReturnDataType & { itad?: ITADPrice[] }> {
     const igdbData = await this.makeReq<IGDBReturnDataType[]>('games', {
       where: `id = ${id}`,
       limit: '1',
     });
 
+    const item = igdbData[0];
+
     const returnData: IGDBReturnDataType = {
-      ...igdbData[0],
+      ...item,
     };
 
     return returnData;
@@ -60,29 +81,6 @@ export class IGDB {
       where: `platforms.abbreviation = "PC" & total_rating != n & total_rating > 85 & hypes > 2 & rating_count > 5 & version_parent = null & category = 0`,
     });
   }
-
-  // private async compare<T>(
-  //   toSearchAgainst: T[],
-  //   mappingData: {
-  //     name: string;
-  //     year?: number;
-  //   },
-  // ) {
-  //   const { name, year } = mappingData;
-
-  //   // TODO: find a better way to type these
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //   // @ts-ignore
-  //   const found: unkown = toSearchAgainst.find((data: unkown) => data.name === name);
-
-  //   if (found) {
-  //     if (year && found.year) {
-  //       if (found.year === year) return found;
-  //     } else return found;
-  //   }
-
-  //   return undefined;
-  // }
 
   private async makeReq<T = unknown>(
     reqUrl: 'games',

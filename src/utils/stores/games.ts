@@ -29,3 +29,7 @@ export class GamesStore {
 
   load = () => this.store.load();
 }
+
+const GameStoreHelper = new GamesStore();
+
+export { GameStoreHelper };

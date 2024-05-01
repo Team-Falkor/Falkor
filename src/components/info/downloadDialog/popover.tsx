@@ -1,7 +1,7 @@
 import { Provider } from '@/@types';
 import DownloadDialogCommand from '@/components/info/downloadDialog/command';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTrigger } from '@radix-ui/react-popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { ChevronsUpDown } from 'lucide-react';
 import { FC } from 'react';
 

@@ -11,10 +11,45 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = ["http-request", "shell-open"] }
+tauri = { version = "1", features = [ "dialog-all",
+  "shell-all",
+  "window-close",
+  "fs-copy-file",
+  "global-shortcut-all",
+  "window-unmaximize",
+  "fs-read-dir",
+  "window-maximize",
+  "fs-rename-file",
+  "clipboard-write-text",
+  "fs-remove-file",
+  "fs-exists",
+  "window-unminimize",
+  "window-start-dragging",
+  "fs-remove-dir",
+  "window-minimize",
+  "window-show",
+  "window-center",
+  "fs-create-dir",
+  "window-hide",
+  "fs-write-file",
+  "fs-read-file",
+  "clipboard-read-text",
+  "http-request",
+] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1" }
+librqbit = { version = "5.5.2", features = ["webui"] } # Updated line
+tokio = { version = "1.34.0", features = ["rt-multi-thread"] }
+anyhow = "1.0.75"
+base64 = "0.22.0"
+http = "1.0.0"
+directories = "5.0.1"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
+tracing = "0.1"
+serde_with = "3.4.0"
+parking_lot = "0.12.1"
+config = "0.14.0"
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

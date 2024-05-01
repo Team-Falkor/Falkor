@@ -5,8 +5,8 @@ import { Body, FetchOptions, Response } from '@tauri-apps/api/http';
 const { VITE_ITAD_API_KEY } = import.meta.env;
 
 class ITAD {
-  baseUrl: string = 'https://api.isthereanydeal.com';
-  apiKey: string;
+  protected readonly baseUrl: string = 'https://api.isthereanydeal.com';
+  protected readonly apiKey: string;
 
   constructor() {
     if (!VITE_ITAD_API_KEY) throw new Error('VITE_ITAD_API_KEY is not set, cannot use ITAD');

@@ -1,14 +1,26 @@
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { PlayIcon } from 'lucide-react';
+import { useIsGameRunning } from '@/stores';
+import { launchGame } from '@/utils';
+import { PlayIcon, XIcon } from 'lucide-react';
 import { FC } from 'react';
 
 interface RecentGameProps {
+  id: number;
   title: string;
   thumbnail: string;
 }
 
-const RecentGame: FC<RecentGameProps> = ({ thumbnail, title }) => {
+const RecentGame: FC<RecentGameProps> = ({ thumbnail, title, id }) => {
+  const { isGameRunning, runningId, setIsGameRunning } = useIsGameRunning();
+
+  const onClick = () => {
+    if (isGameRunning) return setIsGameRunning(false, null);
+
+    setIsGameRunning(true, id);
+    launchGame(id);
+  };
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -17,6 +29,7 @@ const RecentGame: FC<RecentGameProps> = ({ thumbnail, title }) => {
           variant={'ghost'}
           size={'icon'}
           className="relative group"
+          onClick={onClick}
         >
           <img
             src={thumbnail}
@@ -24,9 +37,15 @@ const RecentGame: FC<RecentGameProps> = ({ thumbnail, title }) => {
             alt={title}
           />
 
-          <div className="absolute inset-0 z-20 flex items-center justify-center transition-all opacity-0 bg-gradient-to-tr from-background to-transparent group-hover:opacity-100">
-            <PlayIcon fill="white" />
-          </div>
+          {!!isGameRunning && runningId === id ? (
+            <div className="absolute inset-0 z-20 flex items-center justify-center transition-all bg-gradient-to-tr from-background to-transparent">
+              <XIcon fill="white" />
+            </div>
+          ) : (
+            <div className="absolute inset-0 z-20 flex items-center justify-center transition-all opacity-0 bg-gradient-to-tr from-background to-transparent group-hover:opacity-100">
+              <PlayIcon fill="white" />
+            </div>
+          )}
         </Button>
       </TooltipTrigger>
       <TooltipContent

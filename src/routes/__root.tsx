@@ -1,15 +1,15 @@
 import SideNavigation from '@/components/sideNavigation';
+import { Toaster } from '@/components/ui/sonner';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 
 export const Route = createRootRoute({
   component: () => (
     <>
-      <div className="flex flex-row w-full h-full">
+      <div className="grid h-screen w-full pl-[56px]">
         <SideNavigation />
-        <div className="w-full h-full ml-[56px]">
-          <Outlet />
-        </div>
+        <Outlet />
       </div>
+      <Toaster />
       {/* <TanStackRouterDevtools /> */}
     </>
   ),

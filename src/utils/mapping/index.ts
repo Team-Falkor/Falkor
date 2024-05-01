@@ -1,4 +1,4 @@
-import { distance } from 'fastest-levenshtein';
+import Fuse from 'fuse.js';
 
 interface ExtraData {
   genres?: string[];
@@ -16,7 +16,7 @@ export class Mapping<T extends { name: string }> {
 
   // Settings
   match_percentage: number = 80;
-  distance: number = 1;
+  distance: number = 50;
 
   // Extra data
   extra_data?: ExtraData;
@@ -33,21 +33,21 @@ export class Mapping<T extends { name: string }> {
     switch (searching_for) {
       case 'title':
       default:
-        for await (const item of this.array_to_search) {
-          const title = item.name;
-          const distance_from = distance(this.game_title, title);
-          if (distance_from <= this.match_percentage) {
-            this.matches.add({ ...item, distance_from });
-          }
-          continue;
-        }
-        break;
+        const fuse = new Fuse(this.array_to_search, {
+          keys: ['title', 'name'],
+          distance: this.distance,
+          threshold: this.match_percentage / 100,
+        });
+
+        const result = fuse.search(this.game_title);
+
+        return result[0].item;
     }
   }
 
   async compare(_extra_data?: ExtraData) {
-    // sort Matches set by distance
-    const sorted_matches = Array.from(this.matches).sort((a, b) => a.distance_from - b.distance_from);
-    return sorted_matches[0] ?? null;
+    const match = await this.search();
+
+    return match;
   }
 }

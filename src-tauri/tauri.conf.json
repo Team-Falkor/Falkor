@@ -13,14 +13,64 @@
   "tauri": {
     "allowlist": {
       "all": false,
-      "shell": {
-        "all": false,
-        "open": true
-      },
       "http": {
         "all": false,
         "request": true,
-        "scope": ["https://api.igdb.com/*", "https://api.isthereanydeal.com/*"]
+        "scope": ["https://*"]
+      },
+      "fs": {
+        "all": false,
+        "copyFile": true,
+        "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "scope": [],
+        "writeFile": true
+      },
+      "globalShortcut": {
+        "all": true
+      },
+      "os": {
+        "all": false
+      },
+      "dialog": {
+        "all": true,
+        "ask": true,
+        "confirm": true,
+        "message": true,
+        "open": true,
+        "save": true
+      },
+      "clipboard": {
+        "all": false,
+        "readText": true,
+        "writeText": true
+      },
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true,
+        "center": true
+      },
+      "shell": {
+        "all": true,
+        "scope": [
+          {
+            "name": "open",
+            "cmd": "$EXE",
+            "args": ["%s"]
+          }
+        ]
       }
     },
     "windows": [

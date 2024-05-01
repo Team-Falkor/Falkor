@@ -10,7 +10,7 @@ export const Route = createLazyFileRoute('/')({
 
 function Index() {
   return (
-    <div className="w-full p-5">
+    <div className="w-full p-5 overflow-x-hidden">
       <div>
         <h3 className="pb-2 font-mono text-lg font-medium leading-6">Top Rated</h3>
         <Banner />

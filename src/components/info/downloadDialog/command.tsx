@@ -1,7 +1,7 @@
 import { Provider } from '@/@types';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
-import { CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from 'cmdk';
-import { Check, Command } from 'lucide-react';
+import { Check } from 'lucide-react';
 import React, { FC } from 'react';
 
 interface DownloadDialogCommandProps {
@@ -19,10 +19,10 @@ const DownloadDialogCommand: FC<DownloadDialogCommandProps> = ({
 }) => {
   return (
     <Command>
-      <CommandInput placeholder="Search providers..." />
+      <CommandInput placeholder="Search source providers..." />
 
       <CommandList>
-        <CommandEmpty>No providers found</CommandEmpty>
+        <CommandEmpty>No source providers found</CommandEmpty>
 
         <CommandGroup>
           {providers.map((provider) => (
