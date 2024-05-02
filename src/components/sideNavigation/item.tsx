@@ -1,7 +1,8 @@
 import { Button, buttonVariants } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@radix-ui/react-tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
-import { FunctionComponent } from 'react';
+import { ButtonHTMLAttributes, FunctionComponent } from 'react';
 
 type NavItemProps =
   | {
@@ -10,14 +11,15 @@ type NavItemProps =
       icon: JSX.Element;
       type?: 'link';
     }
-  | {
+  | ({
       type: 'button';
       title: string;
       icon: JSX.Element;
-    };
+      active?: boolean;
+    } & ButtonHTMLAttributes<HTMLButtonElement>);
 
 const NavItem: FunctionComponent<NavItemProps> = (props) => {
-  const { icon, title, type } = props;
+  const { icon, title, type, ...rest } = props;
 
   if (!type || type === 'link') {
     const { href } = props;
@@ -46,25 +48,33 @@ const NavItem: FunctionComponent<NavItemProps> = (props) => {
     );
   }
 
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-lg"
+  if (type === 'button') {
+    return (
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className={cn([
+              'rounded-lg',
+              {
+                'bg-muted': props.active,
+              },
+            ])}
+            {...rest}
+          >
+            <div className="[&>*]:size-5">{icon}</div>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent
+          side="right"
+          sideOffset={8}
         >
-          <div className="[&>*]:size-5">{icon}</div>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent
-        side="right"
-        sideOffset={8}
-      >
-        {title}
-      </TooltipContent>
-    </Tooltip>
-  );
+          {title}
+        </TooltipContent>
+      </Tooltip>
+    );
+  }
 };
 
 export default NavItem;

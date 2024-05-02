@@ -2,8 +2,8 @@ import { create } from 'zustand';
 
 type isGameRunning = {
   isGameRunning: boolean;
-  runningId: number | null;
-  setIsGameRunning: (isGameRunning: boolean, runningId: number | null) => void;
+  runningId: string | null;
+  setIsGameRunning: (isGameRunning: boolean, runningId: string | null) => void;
 };
 
 export const useIsGameRunning = create<isGameRunning>((set) => ({

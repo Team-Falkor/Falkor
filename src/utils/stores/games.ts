@@ -1,19 +1,19 @@
 import { gamesStore } from '@/utils/stores/stores';
 
-interface GameStoreInfo {
+export interface GameStoreInfo {
   name: string;
-  url: string;
   id: string;
-  icon: string;
-  description: string;
-
   path: string;
+  icon: string;
+  command?: string;
+  args?: string;
+  lastPlayed?: Date;
 }
 
 export class GamesStore {
   readonly store = gamesStore;
 
-  getAll = () => this.store.values<GameStoreInfo[]>();
+  getAll = () => this.store.values<GameStoreInfo>();
 
   get = (id: string) => this.store.get<GameStoreInfo>(id);
 

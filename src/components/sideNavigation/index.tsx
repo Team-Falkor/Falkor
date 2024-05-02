@@ -1,8 +1,9 @@
 import { Button, buttonVariants } from '@/components/ui/button';
-import { ArrowDownToLine, BellIcon, HomeIcon, LibraryIcon, SearchIcon, Settings2 } from 'lucide-react';
+import { BellIcon, HomeIcon, LibraryIcon, SearchIcon, Settings2 } from 'lucide-react';
 
 import bg from '@/assets/bg.png';
 import logo from '@/assets/icon.png';
+import SideNavigationDownloads from '@/components/sideNavigation/downloads';
 import NavItem from '@/components/sideNavigation/item';
 import NewGame from '@/components/sideNavigation/newGame';
 import RecentGame from '@/components/sideNavigation/recentGame';
@@ -10,11 +11,32 @@ import Search from '@/components/sideNavigation/search';
 import { Popover, PopoverTrigger } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { GameStoreHelper, GameStoreInfo } from '@/utils/stores';
 import { Link } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SideNavigation = () => {
   const [open, setOpen] = useState(false);
+  const [games, setGames] = useState<GameStoreInfo[]>([]);
+
+  const getGames = async () => {
+    const games = (await GameStoreHelper.getAll())
+      ?.sort((a, b) => {
+        if (!a.lastPlayed) return 1;
+        if (!b.lastPlayed) return -1;
+        if (a.lastPlayed === b.lastPlayed) return 0;
+        if (a.lastPlayed < b.lastPlayed) return 1;
+        if (a.lastPlayed > b.lastPlayed) return -1;
+        return 0;
+      })
+      .slice(0, 6);
+    setGames(games);
+  };
+
+  useEffect(() => {
+    getGames();
+  }, []);
+
   return (
     <aside className="fixed left-0 z-20 flex flex-col h-full border-r inset-y">
       <div className="relative w-full h-full">
@@ -83,30 +105,25 @@ const SideNavigation = () => {
           <nav className="flex flex-col flex-1 gap-3 p-2 border-t border-b">
             <NewGame />
 
-            <RecentGame
-              title={'Play Elden Ring'}
-              thumbnail={'https://images.igdb.com/igdb/image/upload/t_cover_big/co4jni.png'}
-              id={0}
-            />
-
-            <RecentGame
-              title={'Play Assassin’s creed'}
-              thumbnail={'https://images.igdb.com/igdb/image/upload/t_cover_big/co1rrw.png'}
-              id={1}
-            />
+            {games.map((game) => (
+              <RecentGame
+                key={game.id}
+                id={game.id}
+                title={game.name}
+                thumbnail={game.icon}
+                path={game.path}
+              />
+            ))}
           </nav>
 
-          <nav className="grid gap-2 p-2 mt-auto">
+          <nav className="grid gap-2 p-2">
             <NavItem
               type="button"
               title="Notifications"
               icon={<BellIcon />}
             />
-            <NavItem
-              type="button"
-              title="Downloads"
-              icon={<ArrowDownToLine />}
-            />
+
+            <SideNavigationDownloads />
           </nav>
         </div>
       </div>

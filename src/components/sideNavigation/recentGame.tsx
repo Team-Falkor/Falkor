@@ -6,19 +6,21 @@ import { PlayIcon, XIcon } from 'lucide-react';
 import { FC } from 'react';
 
 interface RecentGameProps {
-  id: number;
+  id: string;
   title: string;
   thumbnail: string;
+  path: string;
 }
 
 const RecentGame: FC<RecentGameProps> = ({ thumbnail, title, id }) => {
   const { isGameRunning, runningId, setIsGameRunning } = useIsGameRunning();
 
-  const onClick = () => {
+  const onClick = async () => {
     if (isGameRunning) return setIsGameRunning(false, null);
 
-    setIsGameRunning(true, id);
-    launchGame(id);
+    if (await launchGame(id)) {
+      setIsGameRunning(true, id);
+    }
   };
 
   return (

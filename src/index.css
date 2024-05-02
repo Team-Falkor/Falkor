@@ -76,4 +76,7 @@
       'rlig' 1,
       'calt' 1;
   }
+  * {
+    @apply scrollbar scrollbar-track-muted/50 scrollbar-thumb-muted;
+  }
 }

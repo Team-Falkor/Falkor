@@ -23,9 +23,8 @@ const NewGameSetting: FC<NewGameSettingProps> = ({ description, text, required =
           <FormControl>
             <Input
               placeholder={description}
-              required
-              {...field}
               {...props}
+              {...field}
             />
           </FormControl>
           {Button}
