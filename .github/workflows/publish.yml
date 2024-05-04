@@ -25,6 +25,9 @@ jobs:
     runs-on: ${{ matrix.settings.platform }}
     steps:
       - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
 
       - name: install dependencies (ubuntu only)
         if: matrix.settings.platform == 'ubuntu-22.04' # This must match the platform value defined above.
