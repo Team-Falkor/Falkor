@@ -1,12 +1,14 @@
-import SideNavigationDownloadItem from '@/components/sideNavigation/downloads/item';
 import { Button } from '@/components/ui/button';
 import { PopoverContent } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
 import { TooltipTrigger } from '@radix-ui/react-tooltip';
 import { MagnetIcon, PlusIcon } from 'lucide-react';
+import { useState } from 'react';
 
 const SideNavigationDownloadsPopoverContent = () => {
+  const [downloads] = useState(null);
+
   return (
     <PopoverContent
       side="right"
@@ -46,21 +48,11 @@ const SideNavigationDownloadsPopoverContent = () => {
         <Separator />
 
         <div className="flex flex-col gap-4">
-          <SideNavigationDownloadItem
-            id="god-of-war"
-            title="God of war"
-            onClick={() => {}}
-            progress={20}
-            downloadedAmount={2500000000}
-            totalAmount={5000000000}
-          />
-
-          <SideNavigationDownloadItem
-            id="horizon-forbidden"
-            title="Horizon Forbidden West"
-            onClick={() => {}}
-            progress={0}
-          />
+          {!downloads && (
+            <div className="flex items-center justify-center py-2">
+              <p className="text-sm text-muted-foreground">There currently are no downloads</p>
+            </div>
+          )}
         </div>
       </div>
     </PopoverContent>

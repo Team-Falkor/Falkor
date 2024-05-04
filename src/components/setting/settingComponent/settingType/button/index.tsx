@@ -16,7 +16,7 @@ const SettingButton: FC<SettingPropsButton> = ({
         settingTitle={settingTitle}
         settingDescription={settingDescription}
       />
-      <div className="">
+      <div>
         <Button
           {...props}
           variant={buttonType}

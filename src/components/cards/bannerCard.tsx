@@ -33,7 +33,7 @@ const BannerCard: FC<IGDBReturnDataType> = ({ screenshots: ss, cover, name, summ
 
       <div className="relative z-10 flex flex-col justify-end w-full h-full gap-1 p-4">
         <h1 className="text-2xl font-bold text-white">{name}</h1>
-        <p className="text-sm text-gray-400 line-clamp-4">{storyline ?? summary ?? '??'}</p>
+        <p className="text-sm text-slate-300 line-clamp-4">{storyline ?? summary ?? '??'}</p>
         <div className="flex flex-row justify-end">
           <div className="flex flex-row items-end justify-between w-full">
             <div className="flex flex-row justify-start gap-3 mt-3">
