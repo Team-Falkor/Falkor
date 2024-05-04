@@ -4,11 +4,7 @@ Dive into "Unnamed App", with a vast selection of games combined with community-
 gaming in a single universal hub.
 
 "Unnamed App" is built with the cutting-edge technology of Tauri and
-SvelteKit, "Unnamed App" offers an unparalleled gaming experience that's fast, secure, and cross-platform.
-
-## FAQ
-
-We strongly encourage you to check out our landing page at ["Unnamed App".moe](https://"Unnamed App".moe/). Many of the questions are answered on this page.
+react, "Unnamed App" offers an unparalleled gaming experience that's fast, secure, and cross-platform.
 
 ## Features
 
@@ -24,13 +20,6 @@ Whilst the project is still under the development, we have a lot of features in 
 
 To get started with "Unnamed App", follow these steps:
 
-1. Clone the repository: `git clone https://github.com/"Unnamed App"-team/"Unnamed App".git`
-2. Follow the prerequisites for setting up Tauri and SvelteKit as outlined in
-   the [Tauri Getting Started Guide](https://tauri.app/v1/guides/getting-started/prerequisites).
-3. Install dependencies: `pnpm install`
-4. Launch the development server: `pnpm tauri dev`
-
-### Environment Variables
 
 To run "Unnamed App", you'll need to set up the following environment variables:
 
@@ -55,14 +44,11 @@ If you can't help us with any of this, no worries! We just appreciate that you'r
 
 ## Acknowledgments
 
-- Built with [Tauri](https://tauri.app/) and [SvelteKit](https://kit.svelte.dev/).
+- Built with [Tauri](https://tauri.app/) and [React](https://react.dev/).
 
 Thanks to everyone who helps us make this possible. A list of contributors can be found [here](https://github.com/"Unnamed App"-team/"Unnamed App"/graphs/contributors).
 
 ## Contact
-
-For support, feature requests, or contributions, please visit
-our [GitHub repository](https://github.com/"Unnamed App"-team) or contact us directly on the [Discord](https://discord.gg/mQpaWS3u24).
 
 Dive into the ultimate gaming experience with "Unnamed App" today!
 
