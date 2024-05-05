@@ -21,7 +21,7 @@ const NewGame = () => {
               size={'icon'}
               className="relative group"
             >
-              <div className="w-full h-full bg-teal-500 rounded-md" />
+              <div className="w-full h-full bg-blue-400 rounded-md" />
               <div className="absolute inset-0 z-20 flex items-center justify-center transition-all opacity-100 bg-gradient-to-tr from-background to-transparent hover:opacity-85">
                 <PlusIcon fill="white" />
               </div>

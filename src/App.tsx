@@ -2,6 +2,8 @@ import { CurrentDesktopState, RqbitDesktopConfig } from '@/@types';
 import { ThemeProvider } from '@/components/theme-provider';
 import { Toaster } from '@/components/ui/sonner';
 import { useTorrentConfig } from '@/stores';
+import { useOS } from '@/stores/settings';
+import { getRealOs } from '@/utils';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { RouterProvider, createRouter } from '@tanstack/react-router';
@@ -59,10 +61,17 @@ const getConfig = async () => {
 
 function App() {
   const { setConfig, config } = useTorrentConfig();
+  const { setPlatform, platform } = useOS();
+
+  useEffect(() => {
+    if (platform !== 'unknown') return;
+    getRealOs().then((platform) => {
+      setPlatform(platform);
+    });
+  }, []);
 
   useEffect(() => {
     if (config) return;
-
     getConfig().then((config) => {
       setConfig(config);
     });

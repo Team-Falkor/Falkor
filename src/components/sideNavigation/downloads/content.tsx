@@ -1,4 +1,7 @@
+import DownloadDialogMagnetContent from '@/components/sideNavigation/downloads/dialogs/magnet';
+import DownloadDialogTorrentContent from '@/components/sideNavigation/downloads/dialogs/torrent';
 import { Button } from '@/components/ui/button';
+import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { PopoverContent } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
@@ -20,27 +23,39 @@ const SideNavigationDownloadsPopoverContent = () => {
 
           <div className="flex items-center gap-2">
             <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                >
-                  <PlusIcon className="size-6" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Add from .torrent</TooltipContent>
+              <Dialog>
+                <DialogTrigger>
+                  <TooltipTrigger>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                    >
+                      <PlusIcon className="size-6" />
+                    </Button>
+                  </TooltipTrigger>
+                </DialogTrigger>
+
+                <DownloadDialogTorrentContent />
+                <TooltipContent>Add from .torrent</TooltipContent>
+              </Dialog>
             </Tooltip>
 
             <Tooltip>
-              <TooltipTrigger>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                >
-                  <MagnetIcon className="size-6" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Add from magnet link</TooltipContent>
+              <Dialog>
+                <DialogTrigger>
+                  <TooltipTrigger>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                    >
+                      <MagnetIcon className="size-6" />
+                    </Button>
+                  </TooltipTrigger>
+                </DialogTrigger>
+
+                <DownloadDialogMagnetContent />
+                <TooltipContent>Add from magnet link</TooltipContent>
+              </Dialog>
             </Tooltip>
           </div>
         </div>

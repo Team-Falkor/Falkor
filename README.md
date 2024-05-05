@@ -1,10 +1,10 @@
-# "Unnamed App": Your Ultimate Gaming Hub
+# Falkor: Your Ultimate Gaming Hub
 
-Dive into "Unnamed App", with a vast selection of games combined with community-driven enhancements. Experience seamless, secure
+Dive into Falkor, with a vast selection of games combined with community-driven enhancements. Experience seamless, secure
 gaming in a single universal hub.
 
-"Unnamed App" is built with the cutting-edge technology of Tauri and
-react, "Unnamed App" offers an unparalleled gaming experience that's fast, secure, and cross-platform.
+Falkor is built with the cutting-edge technology of Tauri and
+react, Falkor offers an unparalleled gaming experience that's fast, secure, and cross-platform.
 
 ## Features
 
@@ -18,10 +18,9 @@ Whilst the project is still under the development, we have a lot of features in 
 
 ## Getting Started
 
-To get started with "Unnamed App", follow these steps:
+To get started with Falkor, follow these steps:
 
-
-To run "Unnamed App", you'll need to set up the following environment variables:
+To run Falkor, you'll need to set up the following environment variables:
 
 ### IGDB (Twitch)
 
@@ -31,10 +30,10 @@ To run "Unnamed App", you'll need to set up the following environment variables:
 ### RD (Real Debrid)
 
 - `PUBLIC_RD_CLIENT_ID`: Open source app RD client ID found on the Real Debrid documentation (https://api.real-debrid.com/)
-  
+
 ## Contributing
 
-We welcome contributions to "Unnamed App"! If you are looking for ways to contribute, here are some options:
+We welcome contributions to Falkor! If you are looking for ways to contribute, here are some options:
 
 - Helping us write and improve the documentation
 - Writing code which you feel could improve the project
@@ -46,11 +45,11 @@ If you can't help us with any of this, no worries! We just appreciate that you'r
 
 - Built with [Tauri](https://tauri.app/) and [React](https://react.dev/).
 
-Thanks to everyone who helps us make this possible. A list of contributors can be found [here](https://github.com/"Unnamed App"-team/"Unnamed App"/graphs/contributors).
+Thanks to everyone who helps us make this possible. A list of contributors can be found [here](https://github.com/Falkor-team/Falkor/graphs/contributors).
 
 ## Contact
 
-Dive into the ultimate gaming experience with "Unnamed App" today!
+Dive into the ultimate gaming experience with Falkor today!
 
 <br />
 

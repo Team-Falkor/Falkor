@@ -22,16 +22,15 @@ function Info() {
     queryKey: ['igdb', 'info', id],
     queryFn: async () => await igdb.info(id),
   });
+  console.log({ data });
 
   const fetcher = async () => {
     if (!data) return;
     const itadSearch = await itad.gameSearch(data?.name);
-    console.log({ itadSearch });
 
     const mapping = new Mapping<any>(data?.name, itadSearch);
     const result = await mapping.compare();
 
-    console.log({ result });
     if (result) {
       const local = await getUserCountry();
       const itadPrices = await itad.gamePrices([result.id], local);
