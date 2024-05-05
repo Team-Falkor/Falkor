@@ -16,3 +16,13 @@ export const useTorrentConfig = create<TorrentConfig>((set) => ({
   config: null,
   setConfig: (config: RqbitDesktopConfig) => set({ config }),
 }));
+
+type ShouldCheckForTorrents = {
+  shouldCheckForTorrents: boolean;
+  setShouldCheckForTorrents: (shouldCheckForTorrents: boolean) => void;
+};
+
+export const useShouldCheckForTorrents = create<ShouldCheckForTorrents>((set) => ({
+  shouldCheckForTorrents: false,
+  setShouldCheckForTorrents: (shouldCheckForTorrents: boolean) => set({ shouldCheckForTorrents }),
+}));

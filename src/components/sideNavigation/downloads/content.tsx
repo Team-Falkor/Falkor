@@ -1,16 +1,20 @@
 import DownloadDialogMagnetContent from '@/components/sideNavigation/downloads/dialogs/magnet';
 import DownloadDialogTorrentContent from '@/components/sideNavigation/downloads/dialogs/torrent';
+import SideNavigationDownloadItem from '@/components/sideNavigation/downloads/item';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogTrigger } from '@/components/ui/dialog';
 import { PopoverContent } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
 import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
+import useTorrentList from '@/hooks/useTorrentList';
 import { TooltipTrigger } from '@radix-ui/react-tooltip';
 import { MagnetIcon, PlusIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const SideNavigationDownloadsPopoverContent = () => {
-  const [downloads] = useState(null);
+  const { list: downloads } = useTorrentList();
+  const [magnetDialogOpen, setMagnetDialogOpen] = useState<boolean | undefined>(undefined);
+  const [torrentDialogOpen, setTorrentDialogOpen] = useState<boolean | undefined>(undefined);
 
   return (
     <PopoverContent
@@ -23,7 +27,10 @@ const SideNavigationDownloadsPopoverContent = () => {
 
           <div className="flex items-center gap-2">
             <Tooltip>
-              <Dialog>
+              <Dialog
+                open={torrentDialogOpen}
+                onOpenChange={setTorrentDialogOpen}
+              >
                 <DialogTrigger>
                   <TooltipTrigger>
                     <Button
@@ -41,7 +48,10 @@ const SideNavigationDownloadsPopoverContent = () => {
             </Tooltip>
 
             <Tooltip>
-              <Dialog>
+              <Dialog
+                open={magnetDialogOpen}
+                onOpenChange={setMagnetDialogOpen}
+              >
                 <DialogTrigger>
                   <TooltipTrigger>
                     <Button
@@ -53,7 +63,7 @@ const SideNavigationDownloadsPopoverContent = () => {
                   </TooltipTrigger>
                 </DialogTrigger>
 
-                <DownloadDialogMagnetContent />
+                <DownloadDialogMagnetContent setOpen={setMagnetDialogOpen} />
                 <TooltipContent>Add from magnet link</TooltipContent>
               </Dialog>
             </Tooltip>
@@ -63,10 +73,17 @@ const SideNavigationDownloadsPopoverContent = () => {
         <Separator />
 
         <div className="flex flex-col gap-4">
-          {!downloads && (
+          {!downloads?.length ? (
             <div className="flex items-center justify-center py-2">
               <p className="text-sm text-muted-foreground">There currently are no downloads</p>
             </div>
+          ) : (
+            downloads.map((download) => (
+              <SideNavigationDownloadItem
+                key={download.id}
+                id={download.id}
+              />
+            ))
           )}
         </div>
       </div>

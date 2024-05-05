@@ -88,6 +88,7 @@ async function readFileAsBase64(file: File): Promise<string> {
  * @return {RqbitAPI} - The new instance of the RqbitAPI.
  */
 export const makeAPI = (configuration: RqbitDesktopConfig): RqbitAPI => {
+  console.log({ configuration });
   return {
     /**
      * Returns the URL for streaming logs.
@@ -99,9 +100,8 @@ export const makeAPI = (configuration: RqbitDesktopConfig): RqbitAPI => {
       if (!configuration.http_api.listen_addr) return null;
 
       const port = configuration.http_api.listen_addr.split(':')[1];
-      if (!port) {
-        return null;
-      }
+      if (!port) return null;
+
       return `http://127.0.0.1:${port}/stream_logs`;
     },
     /**
@@ -138,6 +138,7 @@ export const makeAPI = (configuration: RqbitDesktopConfig): RqbitAPI => {
      * @returns {Promise<AddTorrentResponse>} A promise that resolves with the response from the server.
      */
     uploadTorrent: async function (data, opts): Promise<AddTorrentResponse> {
+      console.log(data);
       let response;
       if (data instanceof File) {
         const contents = await readFileAsBase64(data);
@@ -200,7 +201,7 @@ export const makeAPI = (configuration: RqbitDesktopConfig): RqbitAPI => {
      * @returns {Promise<void>} A promise that resolves when the deletion is successful.
      */
     delete: function (id: number): Promise<void> {
-      toast.info(`Successfully created Note `, {
+      toast.info(`Successfully deleted Torrent `, {
         description: `Removing the files`,
       });
       return invokeAPI<void>('torrent_action_delete', { id });
