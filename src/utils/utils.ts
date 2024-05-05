@@ -1,3 +1,5 @@
+import { os } from '@tauri-apps/api';
+
 /**
  * Returns a human-readable string representing the time difference between the
  * current time and the given date, e.g. "3 hours ago", "1 minute ago"
@@ -57,4 +59,37 @@ export const bytesToHumanReadable = (bytes: number): string => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+};
+
+export const scrapeOptions = (input: string): Record<string, string[]> => {
+  const regex = /<strong>([^<]+)<\/strong>([^<]+)<br>/g;
+  let match;
+  const options: Record<string, string[]> = {};
+
+  while ((match = regex.exec(input)) !== null) {
+    let [_, key, value] = match;
+    key = key.replace(/[^A-Za-z0-9:]/g, '').trim();
+    if (options[key]) {
+      options[key].push(value.trim());
+    } else {
+      options[key] = [value.trim()];
+    }
+  }
+
+  return options;
+};
+
+export const getRealOs = async (): Promise<'windows' | 'macos' | 'linux' | 'unknown'> => {
+  const OS = await os.type();
+
+  switch (OS) {
+    case 'Windows_NT':
+      return 'windows';
+    case 'Darwin':
+      return 'macos';
+    case 'Linux':
+      return 'linux';
+    default:
+      return 'unknown';
+  }
 };

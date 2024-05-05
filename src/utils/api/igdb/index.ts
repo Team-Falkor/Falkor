@@ -1,5 +1,4 @@
-import { IGDBReturnDataType } from '@/utils/api/igdb/types';
-import { ITADPrice } from '@/utils/api/itad/types';
+import { ApiResponse, IGDBReturnDataType, InfoReturn } from '@/utils/api/igdb/types';
 import { http } from '@tauri-apps/api';
 import { Body } from '@tauri-apps/api/http';
 
@@ -52,7 +51,7 @@ export class IGDB {
     );
   }
 
-  async info(id: string): Promise<IGDBReturnDataType & { itad?: ITADPrice[] }> {
+  async info(id: string): Promise<InfoReturn> {
     const igdbData = await this.makeReq<IGDBReturnDataType[]>('games', {
       where: `id = ${id}`,
       limit: '1',
@@ -60,8 +59,17 @@ export class IGDB {
 
     const item = igdbData[0];
 
-    const returnData: IGDBReturnDataType = {
+    const find_steam_id = (item.websites || []).find((site) =>
+      site.url.startsWith('https://store.steampowered.com/app'),
+    );
+
+    const steam_id = find_steam_id?.url.split('/').pop();
+
+    const steam = steam_id ? await this.steamStoreInfo(steam_id) : null;
+
+    const returnData: InfoReturn = {
       ...item,
+      steam,
     };
 
     return returnData;
@@ -149,6 +157,18 @@ export class IGDB {
       });
 
       return await res.data;
+    } catch (error) {
+      console.log(error);
+      throw new Error((error as Error).message);
+    }
+  }
+
+  async steamStoreInfo(appid: string) {
+    try {
+      const url = `https://store.steampowered.com/api/appdetails/?appids=${appid}`;
+      const res = await http.fetch<ApiResponse>(url);
+
+      return res.data[appid];
     } catch (error) {
       console.log(error);
       throw new Error((error as Error).message);

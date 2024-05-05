@@ -1,7 +1,7 @@
 import { Button, buttonVariants } from '@/components/ui/button';
 import { BellIcon, HomeIcon, LibraryIcon, SearchIcon, Settings2 } from 'lucide-react';
 
-import bg from '@/assets/bg.png';
+import bg from '@/assets/bg.jpeg';
 import logo from '@/assets/icon.png';
 import SideNavigationDownloads from '@/components/sideNavigation/downloads';
 import NavItem from '@/components/sideNavigation/item';
@@ -42,7 +42,7 @@ const SideNavigation = () => {
       <div className="relative w-full h-full">
         <img
           src={bg}
-          className="absolute inset-0 z-10 object-cover w-full h-full opacity-5"
+          className="absolute inset-0 z-10 object-cover object-center w-full h-full opacity-10"
         />
 
         <div className="relative z-20 flex flex-col h-screen overflow-hidden border-r bg-opacity-5">
@@ -58,11 +58,11 @@ const SideNavigation = () => {
                 >
                   <img
                     src={logo}
-                    className="size-8"
+                    className="size-9"
                   />
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Sail The Seas!</TooltipContent>
+              <TooltipContent side="right">Falkor The luck of the draw</TooltipContent>
             </Tooltip>
           </div>
           <nav className="grid gap-2 p-2">
