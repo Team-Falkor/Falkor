@@ -4,6 +4,7 @@ import { Progress } from '@/components/ui/progress';
 import { useTorrent } from '@/contexts/torrent';
 import useTorrentStats from '@/hooks/useTorrentStats';
 import { cn } from '@/lib/utils';
+import { useShouldCheckForTorrents } from '@/stores';
 import { bytesToHumanReadable } from '@/utils';
 import { PauseIcon, PlayIcon, Trash } from 'lucide-react';
 import { FunctionComponent, useEffect, useState } from 'react';
@@ -14,10 +15,11 @@ interface SideNavigationDownloadItemProps {
 
 const SideNavigationDownloadItem: FunctionComponent<SideNavigationDownloadItemProps> = ({ id }) => {
   const { getTorrentDetails, pause, start, delete: deleteTorrent } = useTorrent();
+  const { setShouldCheckForTorrents } = useShouldCheckForTorrents();
   const [torrent, setTorrent] = useState<TorrentDetails>();
-  const { stats, intervalId } = useTorrentStats({
+  const { stats, intervalId, paused, finished, setPaused } = useTorrentStats({
     id: id,
-    interval: 1000,
+    interval: 2000,
   });
 
   useEffect(() => {
@@ -45,8 +47,8 @@ const SideNavigationDownloadItem: FunctionComponent<SideNavigationDownloadItemPr
             'w-full h-3',
             {
               '[&>div]:bg-red-500': stats?.error,
-              '[&>div]:bg-yellow-500': stats?.state === 'paused',
-              '[&>div]:bg-green-500': stats?.finished,
+              '[&>div]:bg-yellow-500': paused,
+              '[&>div]:bg-green-500': finished,
             },
           ])}
         />
@@ -65,6 +67,7 @@ const SideNavigationDownloadItem: FunctionComponent<SideNavigationDownloadItemPr
           className="size-4"
           onClick={() => {
             deleteTorrent(id);
+            setShouldCheckForTorrents(true);
             if (intervalId) clearInterval(intervalId);
           }}
         >
@@ -76,15 +79,21 @@ const SideNavigationDownloadItem: FunctionComponent<SideNavigationDownloadItemPr
           size="icon"
           className="size-4"
         >
-          {stats?.state === 'paused' ? (
+          {paused ? (
             <PlayIcon
               className="size-3"
-              onClick={() => start(id)}
+              onClick={() => {
+                start(id);
+                setPaused(false);
+              }}
             />
           ) : (
             <PauseIcon
               className="size-3"
-              onClick={() => pause(id)}
+              onClick={() => {
+                pause(id);
+                setPaused(true);
+              }}
             />
           )}
         </Button>

@@ -3,33 +3,28 @@ import { useTorrent } from '@/contexts/torrent';
 import { useShouldCheckForTorrents } from '@/stores';
 import { useEffect, useRef, useState } from 'react';
 
-const useTorrentList = (interval?: number) => {
-  const { shouldCheckForTorrents } = useShouldCheckForTorrents();
+const useTorrentList = () => {
+  const firstRun = useRef(true);
+  const { shouldCheckForTorrents, setShouldCheckForTorrents } = useShouldCheckForTorrents();
   const { listTorrents } = useTorrent();
   const [list, setList] = useState<Array<TorrentId>>([]);
-  const intervalId = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
+    if (!shouldCheckForTorrents && !firstRun.current) return;
+
     console.log('Checking for torrents...');
     listTorrents().then((data) => {
+      if (firstRun.current) firstRun.current = false;
       setList(data.torrents);
+      setShouldCheckForTorrents(false);
     });
-  }, []);
 
-  useEffect(() => {
-    if (!shouldCheckForTorrents) return;
-
-    intervalId.current = setInterval(() => {
-      console.log('Checking for torrents...');
-      listTorrents().then((data) => {
-        setList(data.torrents);
-      });
-    }, interval ?? 1500);
-
-    return () => clearInterval(intervalId.current);
+    return () => {
+      setShouldCheckForTorrents(false);
+    };
   }, [shouldCheckForTorrents]);
 
-  return { list, intervalId: intervalId.current };
+  return { list };
 };
 
 export default useTorrentList;

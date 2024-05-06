@@ -19,7 +19,7 @@ const SideNavigationDownloadsPopoverContent = () => {
   return (
     <PopoverContent
       side="right"
-      className="w-[400px]"
+      className="w-[450px]"
     >
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between">
@@ -42,7 +42,7 @@ const SideNavigationDownloadsPopoverContent = () => {
                   </TooltipTrigger>
                 </DialogTrigger>
 
-                <DownloadDialogTorrentContent />
+                <DownloadDialogTorrentContent setOpen={setTorrentDialogOpen} />
                 <TooltipContent>Add from .torrent</TooltipContent>
               </Dialog>
             </Tooltip>
