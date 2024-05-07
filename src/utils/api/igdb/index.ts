@@ -1,5 +1,6 @@
-import { allowedGameCategories, searchEasterEggs } from '@/utils/api/igdb/helpers';
+import { searchEasterEggs } from '@/utils/api/igdb/helpers';
 import { ApiResponse, IGDBReturnDataType, InfoReturn } from '@/utils/api/igdb/types';
+import { FilterOutNonePcGames } from '@/utils/utils';
 import { http } from '@tauri-apps/api';
 import { Body } from '@tauri-apps/api/http';
 
@@ -38,11 +39,7 @@ export class IGDB {
     });
 
     // filter out none pc games and category !== 0
-    return data.filter(
-      (game) =>
-        game.platforms?.some((platform) => platform.abbreviation === 'PC') &&
-        allowedGameCategories.includes(game.category),
-    );
+    return FilterOutNonePcGames(data);
   }
 
   async info(id: string): Promise<InfoReturn> {
@@ -74,6 +71,14 @@ export class IGDB {
     return await this.makeReq<IGDBReturnDataType[]>('games', {
       sort: 'hypes desc',
       where: `platforms.abbreviation = "PC" & hypes != n & first_release_date > ${DateNow}`,
+    });
+  }
+
+  async newReleases(): Promise<IGDBReturnDataType[]> {
+    const DateNow = (new Date().getTime() / 1000).toFixed();
+    return await this.makeReq<IGDBReturnDataType[]>('games', {
+      sort: 'first_release_date desc',
+      where: `platforms.abbreviation = "PC" & hypes != n & first_release_date < ${DateNow}`,
     });
   }
 
@@ -118,6 +123,8 @@ export class IGDB {
         'similar_games.screenshots.*',
         'similar_games.cover.*',
         'similar_games.genres.*',
+        'similar_games.release_dates.*',
+        'similar_games.platforms.*',
         'artworks.*',
       ];
 

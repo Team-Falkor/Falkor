@@ -29,6 +29,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "dayjs": "^1.11.11",
     "embla-carousel-autoplay": "^8.0.2",
     "embla-carousel-react": "^8.0.2",
     "fastest-levenshtein": "^1.0.16",

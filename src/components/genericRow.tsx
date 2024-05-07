@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
 
 interface GenericRowProps {
-  dataToFetch: 'mostAnticipated' | 'topRated';
+  dataToFetch: 'mostAnticipated' | 'topRated' | 'newReleases';
 }
 
 const GenericRow: FC<GenericRowProps> = ({ dataToFetch }) => {
@@ -24,16 +24,13 @@ const GenericRow: FC<GenericRowProps> = ({ dataToFetch }) => {
 
   return (
     <section className="flex justify-between gap-2">
-      {data?.slice(0, 6).map((game) => (
-        <DefaultCard
-          name={game.name}
-          cover={game.cover}
-          screenshots={game.screenshots}
-          id={game.id.toString()}
-          genres={game.genres}
-          key={game.id}
-        />
-      ))}
+      {!!data &&
+        data?.slice(0, 6).map((game) => (
+          <DefaultCard
+            key={game.id}
+            {...game}
+          />
+        ))}
     </section>
   );
 };

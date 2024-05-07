@@ -171,11 +171,11 @@ export interface SimilarGame {
   keywords?: number[];
   multiplayer_modes?: number[];
   name: string;
-  platforms: Array<GameEngineClass | number>;
+  platforms: Platform[];
   player_perspectives?: number[];
   rating?: number;
   rating_count?: number;
-  release_dates: Array<GameEngineClass | number>;
+  release_dates: ReleaseDate[];
   screenshots?: IGDBReturnDataTypeCover[];
   similar_games: Array<GameEngineClass | number>;
   slug: string;

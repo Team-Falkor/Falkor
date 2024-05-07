@@ -1,14 +1,21 @@
 import DefaultCard from '@/components/cards/defaultCard';
 import CarouselButton from '@/components/info/carouselButton';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import { FilterOutNonePcGames } from '@/utils';
 import { IGDBReturnDataType } from '@/utils/api/igdb/types';
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 
 interface SimilarGamesProps {
   data: IGDBReturnDataType['similar_games'];
 }
 
 const SimilarGames: FC<SimilarGamesProps> = ({ data }) => {
+  const items = useMemo(() => {
+    return FilterOutNonePcGames(data);
+  }, [data]);
+
+  if (!items.length) return null;
+
   return (
     <div>
       <Carousel
@@ -25,17 +32,14 @@ const SimilarGames: FC<SimilarGamesProps> = ({ data }) => {
           </div>
         </div>
         <CarouselContent>
-          {data.map((game) => (
+          {items.map((game) => (
             <CarouselItem
               key={game.id}
               className="md:basis-1/5 lg:basis-1/5"
             >
               <DefaultCard
-                name={game.name}
-                cover={game.cover}
-                screenshots={game.screenshots}
-                id={game.id.toString()}
-                genres={game.genres}
+                key={game.id}
+                {...game}
               />
             </CarouselItem>
           ))}

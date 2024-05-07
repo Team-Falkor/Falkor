@@ -1,9 +1,10 @@
-import Setting from '@/components/setting/settingComponent';
+import AccountsTable from '@/components/setting/tabs/accounts/table';
 import Container from '@/components/setting/tabs/container';
 import SettingTitle from '@/components/setting/title';
-import { DialogContent } from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import RealDebridDialog from '@/modals/realdebrid';
 import { FC } from 'react';
 
 interface TorrentSettingProps {
@@ -25,16 +26,13 @@ const AccountsSettings: FC<TorrentSettingProps> = ({ index, currentIndex }) => {
           <Label htmlFor="use-downloads">Use Account(s) to download</Label>
         </div>
 
-        <div>
-          <Setting
-            settingType="dialog"
-            DialogContent={<DialogContent></DialogContent>}
-            buttonLabel="Add Account"
-            title="Add Account"
-            description="Add an account to use for downloading torrents"
-            onClick={() => {}}
-          />
+        <div className="mt-2 mb-4">
+          <RealDebridDialog>
+            <Button variant="secondary">Add Account</Button>
+          </RealDebridDialog>
         </div>
+
+        <AccountsTable />
       </Container>
     </div>
   );

@@ -1,3 +1,5 @@
+import { RealDebridUser } from '@/@types';
+import { RealDebridSettings } from '@/hooks/useRealDebridLogin/utils';
 import { create } from 'zustand';
 
 type OS = {
@@ -8,4 +10,20 @@ type OS = {
 export const useOS = create<OS>((set) => ({
   platform: 'unknown',
   setPlatform: (platform) => set({ platform }),
+}));
+
+type RealDebrid = {
+  realDebridSettings: RealDebridSettings | null;
+  setRealDebridSettings: (realDebridSettings: RealDebridSettings) => void;
+
+  userInfo: RealDebridUser | null;
+  setUserInfo: (userInfo: RealDebridUser) => void;
+};
+
+export const useRealDebridStore = create<RealDebrid>((set) => ({
+  realDebridSettings: null,
+  setRealDebridSettings: (realDebridSettings) => set({ realDebridSettings }),
+
+  userInfo: null,
+  setUserInfo: (userInfo) => set({ userInfo }),
 }));
