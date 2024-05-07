@@ -69,7 +69,7 @@ function RouteComponent() {
           </nav>
         </div>
 
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full overflow-hidden">
           <GeneralSetting
             currentIndex={currentTab}
             index={0}
