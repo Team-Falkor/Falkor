@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import RealDebridDialog from '@/modals/realdebrid';
+import { useRealDebridStore } from '@/stores/settings';
 import { FC } from 'react';
 
 interface TorrentSettingProps {
@@ -13,6 +14,7 @@ interface TorrentSettingProps {
 }
 
 const AccountsSettings: FC<TorrentSettingProps> = ({ index, currentIndex }) => {
+  const { userInfo } = useRealDebridStore();
   if (index !== currentIndex) return null;
 
   return (
@@ -27,8 +29,13 @@ const AccountsSettings: FC<TorrentSettingProps> = ({ index, currentIndex }) => {
         </div>
 
         <div className="mt-2 mb-4">
-          <RealDebridDialog>
-            <Button variant="secondary">Add Account</Button>
+          <RealDebridDialog disabled={!!userInfo}>
+            <Button
+              variant="secondary"
+              disabled={!!userInfo}
+            >
+              Add Account
+            </Button>
           </RealDebridDialog>
         </div>
 

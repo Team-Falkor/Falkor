@@ -1,4 +1,3 @@
-import { Button } from '@/components/ui/button';
 import { TableCell, TableRow } from '@/components/ui/table';
 import { PencilLine, RefreshCcw, Trash2 } from 'lucide-react';
 import { FunctionComponent } from 'react';
@@ -36,27 +35,17 @@ const AccountsTableItem: FunctionComponent<AccountsTableItemProps> = ({ avatar, 
       <TableCell>{service}</TableCell>
 
       <TableCell className="flex items-center gap-3">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-4"
-        >
+        <button className="*:size-5 hover:opacity-55 transition-all hover:scale-125">
           <RefreshCcw />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-4"
-        >
+        </button>
+
+        <button className="*:size-5 hover:opacity-55 transition-all hover:scale-125">
           <PencilLine />
-        </Button>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="size-4"
-        >
+        </button>
+
+        <button className="*:size-5 hover:opacity-55 transition-all hover:scale-125">
           <Trash2 />
-        </Button>
+        </button>
       </TableCell>
     </TableRow>
   );

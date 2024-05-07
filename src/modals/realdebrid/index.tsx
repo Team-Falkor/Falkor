@@ -12,7 +12,11 @@ import {
 import useRealDebridLogin from '@/hooks/useRealDebridLogin';
 import { FC, PropsWithChildren, useEffect, useState } from 'react';
 
-const RealDebridDialog: FC<PropsWithChildren> = ({ children }) => {
+interface RealDebridProps {
+  disabled?: boolean;
+}
+
+const RealDebridDialog: FC<PropsWithChildren<RealDebridProps>> = ({ children, disabled }) => {
   const [open, setOpen] = useState(false);
 
   const { realDebridSettings, openRealDebrid, deviceCodeInfo, cancel } = useRealDebridLogin(open);
@@ -27,7 +31,7 @@ const RealDebridDialog: FC<PropsWithChildren> = ({ children }) => {
       open={open}
       onOpenChange={setOpen}
     >
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger disabled={disabled}>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Log in to RealDebrid!</DialogTitle>

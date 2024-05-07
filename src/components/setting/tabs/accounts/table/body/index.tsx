@@ -49,14 +49,16 @@ const AccountsTableBody = () => {
 
   return (
     <TableBody>
-      <AccountsTableItem
-        avatar={userInfo?.avatar}
-        email={userInfo?.email}
-        name={userInfo?.username ?? '??'}
-        date={dayjs(userInfo?.expiration).format('DD MMM YYYY, hh:mm A')}
-        type={userInfo?.type ?? '??'}
-        service={'Real Debrid'}
-      />
+      {!!userInfo && (
+        <AccountsTableItem
+          avatar={userInfo?.avatar}
+          email={userInfo?.email}
+          name={userInfo?.username ?? '??'}
+          date={dayjs(userInfo?.expiration).format('DD MMM YYYY, hh:mm A')}
+          type={userInfo?.type ?? '??'}
+          service={'Real Debrid'}
+        />
+      )}
     </TableBody>
   );
 };
