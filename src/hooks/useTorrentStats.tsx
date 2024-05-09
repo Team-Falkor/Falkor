@@ -27,7 +27,7 @@ const useTorrentStats = ({ id, interval }: TorrentStatsProps) => {
 
   const setStates = (data: TorrentStats) => {
     setStats(data);
-    setPaused(data?.state === 'paused' ?? false);
+    setPaused(data?.state === 'paused');
     setFinished(data?.finished ?? false);
   };
 

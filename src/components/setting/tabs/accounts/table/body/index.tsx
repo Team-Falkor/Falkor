@@ -2,7 +2,8 @@ import AccountsTableItem from '@/components/setting/tabs/accounts/table/body/ite
 import { TableBody } from '@/components/ui/table';
 import { checkForRealDebrid, checkforRealDebridUser } from '@/hooks/useRealDebridLogin/utils';
 import { useRealDebridStore } from '@/stores/settings';
-import RealDebridClient from '@/utils/realdebrid';
+import RealDebridClient from '@/utils/api/realdebrid';
+
 import { setRealDebridUserInfo, settingsStore } from '@/utils/stores';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';

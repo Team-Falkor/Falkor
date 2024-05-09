@@ -26,7 +26,7 @@ const QuickInfo: FC<QuickInfoProps> = (props) => {
       <ul className="flex flex-col justify-center gap-2 -mt-1 border-gray-200 divide-gray-200 rounded-lg dark:divide-gray-700 dark:border-gray-700 dark:text-gray-100">
         <QuickInfoItem
           title={'Genres'}
-          data={genres}
+          data={!!genres?.length ? genres : 'N/A'}
         />
         <QuickInfoItem
           title={'Rating'}

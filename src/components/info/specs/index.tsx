@@ -19,7 +19,7 @@ const PcSpecs: FC<PcSpecsProps> = ({ minimum, recommended }) => {
   // remove null values
   const items = data.filter((item) => item?.data);
 
-  if (!items.length) return null;
+  if (!items?.length) return null;
 
   return (
     <div className="grid gap-4">

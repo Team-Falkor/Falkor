@@ -73,7 +73,7 @@ function Info() {
         ) : (
           <div className="relative w-full overflow-hidden rounded-b-lg h-96">
             <IGDBImage
-              imageId={data?.screenshots?.[0]?.image_id ?? ''}
+              imageId={data?.screenshots?.[0]?.image_id ?? data?.cover?.image_id ?? ''}
               alt={data?.name}
               className="relative z-0 object-cover w-full h-full overflow-hidden"
               imageSize="screenshot_big"

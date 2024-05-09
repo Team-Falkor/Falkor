@@ -14,7 +14,7 @@ const SimilarGames: FC<SimilarGamesProps> = ({ data }) => {
     return FilterOutNonePcGames(data);
   }, [data]);
 
-  if (!items.length) return null;
+  if (!items?.length) return null;
 
   return (
     <div>

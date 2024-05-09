@@ -107,7 +107,7 @@ export const getRealOs = async (): Promise<'windows' | 'macos' | 'linux' | 'unkn
 export const allowedGameCategories: number[] = [0, 8, 9, 10, 11, 12];
 
 export const FilterOutNonePcGames = <T extends IGDBReturnDataType | SimilarGame>(games: T[]): T[] => {
-  return games.filter(
+  return games?.filter(
     (game) =>
       game.platforms?.some((platform) => platform.abbreviation === 'PC') &&
       allowedGameCategories.includes(game.category),

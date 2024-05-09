@@ -19,7 +19,7 @@ type NavItemProps =
     } & ButtonHTMLAttributes<HTMLButtonElement>);
 
 const NavItem: FunctionComponent<NavItemProps> = (props) => {
-  const { icon, title, type, ...rest } = props;
+  const { icon, title, type } = props;
 
   if (!type || type === 'link') {
     const { href } = props;
@@ -49,6 +49,7 @@ const NavItem: FunctionComponent<NavItemProps> = (props) => {
   }
 
   if (type === 'button') {
+    const { active, ...rest } = props;
     return (
       <Tooltip>
         <TooltipTrigger asChild>
@@ -58,7 +59,7 @@ const NavItem: FunctionComponent<NavItemProps> = (props) => {
             className={cn([
               'rounded-lg',
               {
-                'bg-muted': props.active,
+                'bg-muted': active,
               },
             ])}
             {...rest}

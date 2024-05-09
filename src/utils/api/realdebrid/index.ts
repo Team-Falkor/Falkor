@@ -1,6 +1,6 @@
-import { Torrents } from '@/utils/realdebrid/torrents';
-import { Unrestrict } from '@/utils/realdebrid/unrestrict';
-import { User } from '@/utils/realdebrid/user';
+import { Torrents } from '@/utils/api/realdebrid/torrents';
+import { Unrestrict } from '@/utils/api/realdebrid/unrestrict';
+import { User } from '@/utils/api/realdebrid/user';
 
 class RealDebridClient {
   // Use RealDebrid Auth to gain the access token and refresh token before making requests

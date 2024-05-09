@@ -1,4 +1,4 @@
-import { RealDebridAuth } from '@/utils/realdebrid/auth';
+import { RealDebridAuth } from '@/utils/api/realdebrid/auth';
 import { checkRealDebridData, checkRealDebridUserInfo, settingsStore } from '@/utils/stores';
 
 export const realDebridAuth = new RealDebridAuth();

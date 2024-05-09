@@ -18,6 +18,14 @@
         "request": true,
         "scope": ["https://*"]
       },
+      "protocol": {
+        "all": false,
+        "asset": true,
+        "assetScope": ["https://*"]
+      },
+      "path": {
+        "all": true
+      },
       "fs": {
         "all": false,
         "copyFile": true,
@@ -28,7 +36,7 @@
         "removeDir": true,
         "removeFile": true,
         "renameFile": true,
-        "scope": [],
+        "scope": ["$APPDATA/**"],
         "writeFile": true
       },
       "globalShortcut": {

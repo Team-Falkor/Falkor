@@ -1,5 +1,5 @@
 import { RealDebridTorrent, RealDebridUser } from '@/@types';
-import { RealDebridAPI } from '@/utils/realdebrid/models/api';
+import { RealDebridAPI } from '@/utils/api/realdebrid/models/api';
 
 export class User extends RealDebridAPI {
   constructor(accessToken: string) {
