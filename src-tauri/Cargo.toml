@@ -11,7 +11,11 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-tauri = { version = "1", features = [ "protocol-asset", "path-all", "os-all", "dialog-all",
+tauri = { version = "1", features = [
+  "protocol-asset",
+  "path-all",
+  "os-all",
+  "dialog-all",
   "shell-all",
   "window-close",
   "fs-copy-file",
@@ -50,6 +54,7 @@ tracing = "0.1"
 serde_with = "3.4.0"
 parking_lot = "0.12.1"
 config = "0.14.0"
+
 
 [features]
 # This feature is used for production builds or when a dev server is not specified, DO NOT REMOVE!!

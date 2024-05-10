@@ -1,10 +1,13 @@
 import PluginCard from '@/components/cards/pluginCard';
+import { SortBy } from '@/components/setting/tabs/plugins';
 import { cn } from '@/lib/utils';
 import { FC } from 'react';
 
 interface PluginDisplayProps {
   showRows: boolean;
   setShowRows: (showRows: boolean) => void;
+
+  sortBy: SortBy;
 }
 
 const PluginDisplay: FC<PluginDisplayProps> = ({ showRows }) => {

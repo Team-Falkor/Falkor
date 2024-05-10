@@ -22,14 +22,9 @@ const AccountsTableBody = () => {
   }, [realDebridSettings]);
 
   const getInfo = async () => {
-    console.log({ realDebridSettings: realDebridSettings });
     if (!realDebridSettings) return;
     const rd = new RealDebridClient(realDebridSettings.accessToken);
     const userInfo = await rd.user.getUserInfo();
-
-    console.log({
-      userInfo,
-    });
 
     if (!userInfo) return;
     setUserInfo(userInfo);

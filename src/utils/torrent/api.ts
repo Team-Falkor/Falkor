@@ -88,7 +88,6 @@ async function readFileAsBase64(file: File): Promise<string> {
  * @return {RqbitAPI} - The new instance of the RqbitAPI.
  */
 export const makeAPI = (configuration: RqbitDesktopConfig): RqbitAPI => {
-  console.log({ configuration });
   return {
     /**
      * Returns the URL for streaming logs.

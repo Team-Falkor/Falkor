@@ -22,7 +22,6 @@ function Info() {
     queryKey: ['igdb', 'info', id],
     queryFn: async () => await igdb.info(id),
   });
-  console.log({ data });
 
   const fetcher = async () => {
     if (!data) return;

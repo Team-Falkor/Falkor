@@ -1,7 +1,7 @@
 import { SortBy } from '@/components/setting/tabs/plugins';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { ArrowDownAZ, ArrowDownNarrowWide, ArrowUpAZ, ArrowUpNarrowWide, Columns2, Rows3 } from 'lucide-react';
+import { ArrowDownAZ, ArrowDownNarrowWide, ArrowUpAZ, ArrowUpNarrowWide, Check, Columns2, Rows3 } from 'lucide-react';
 import { Dispatch, FC, SetStateAction } from 'react';
 
 interface PluginsSortProps {
@@ -14,6 +14,18 @@ interface PluginsSortProps {
 const PluginsSort: FC<PluginsSortProps> = ({ setShowRows, showRows, setSortBy, sortBy }) => {
   return (
     <div className="flex gap-2">
+      <Tooltip>
+        <TooltipTrigger>
+          <Button
+            variant={'ghost'}
+            size={'icon'}
+          >
+            <Check />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent className="capitalize">show installed only</TooltipContent>
+      </Tooltip>
+
       <Tooltip>
         <TooltipTrigger>
           <Button

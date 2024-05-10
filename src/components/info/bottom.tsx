@@ -19,8 +19,6 @@ const InfoBottom: FC<InfoReturn & InfoProps> = (props) => {
     return props.steam?.data.pc_requirements;
   }, [platform]);
 
-  console.log({ findRequirements });
-
   return (
     <div className="flex flex-col gap-6 mt-5">
       <SimilarGames data={similar_games} />
