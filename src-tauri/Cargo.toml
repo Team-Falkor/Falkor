@@ -11,15 +11,11 @@ edition = "2021"
 tauri-build = { version = "1", features = [] }
 
 [dependencies]
-<<<<<<< HEAD
-tauri = { version = "1", features = [ "os-all", "dialog-all",
-=======
 tauri = { version = "1", features = [
   "protocol-asset",
   "path-all",
   "os-all",
   "dialog-all",
->>>>>>> main
   "shell-all",
   "window-close",
   "fs-copy-file",
