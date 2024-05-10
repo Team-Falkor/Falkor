@@ -1,5 +1,6 @@
 import DefaultCard from '@/components/cards/defaultCard';
 import GenericRowSkeleton from '@/components/skeletons/genericRow';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import { igdb } from '@/utils';
 import { useQuery } from '@tanstack/react-query';
 import { FC } from 'react';
@@ -23,15 +24,25 @@ const GenericRow: FC<GenericRowProps> = ({ dataToFetch }) => {
   if (error) return null;
 
   return (
-    <section className="flex justify-between gap-2">
-      {!!data &&
-        data?.slice(0, 6).map((game) => (
-          <DefaultCard
+    <Carousel
+      opts={{
+        skipSnaps: true,
+      }}
+    >
+      <CarouselContent>
+        {data?.map((game) => (
+          <CarouselItem
             key={game.id}
-            {...game}
-          />
+            className="md:basis-[16%] sm:basis-1/6 lg:basis-[14.5%]"
+          >
+            <DefaultCard
+              key={game.id}
+              {...game}
+            />
+          </CarouselItem>
         ))}
-    </section>
+      </CarouselContent>
+    </Carousel>
   );
 };
 

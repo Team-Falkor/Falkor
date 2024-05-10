@@ -25,7 +25,7 @@ function RouteComponent() {
   };
 
   return (
-    <div className="w-full h-screen py-16 m-auto max-w-7xl">
+    <div className="w-full h-screen py-16 m-auto max-w-7xl lg:max-w-[1650px]">
       <div className="flex flex-row justify-between w-full h-full rounded-lg ring-1 ring-muted">
         <div className="flex flex-col h-full border-r w-80">
           <div className="p-3 px-4 border-b">

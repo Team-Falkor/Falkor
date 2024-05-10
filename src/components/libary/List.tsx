@@ -32,7 +32,7 @@ const List: FunctionComponent<ListProps> = ({ name }) => {
         <CarouselContent>
           {data.map((game) => (
             <CarouselItem
-              className="md:basis-1/6 lg:basis-1/6"
+              className="md:basis-[16%] sm:basis-1/6 lg:basis-[14.5%]"
               key={game.id}
             >
               <DefaultCard {...game} />

@@ -8,7 +8,7 @@ export const Route = createLazyFileRoute('/libary')({
 
 function Libary() {
   return (
-    <div className="relative w-full h-full p-6 overflow-x-hidden">
+    <div className="relative w-full h-full p-6 overflow-x-hidden max-w-[1350px] lg:max-w-[1700px] ml-auto mr-auto">
       <div className="flex flex-col w-full h-full gap-10">
         <ContuinePlaying />
 
