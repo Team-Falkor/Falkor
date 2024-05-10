@@ -1,19 +1,16 @@
 import IGDBImage from '@/components/IGDBImage';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Genre, IGDBReturnDataTypeCover } from '@/utils/api/igdb/types';
+import { IGDBReturnDataType, SimilarGame } from '@/utils/api/igdb/types';
 import { Link } from '@tanstack/react-router';
+import dayjs from 'dayjs';
 import { FC } from 'react';
 
-interface DefaultCardProps {
-  cover?: IGDBReturnDataTypeCover;
-  screenshots?: IGDBReturnDataTypeCover[];
-  name: string;
-  id: string;
-  genres: Genre[];
-}
+type DefaultCardProps = IGDBReturnDataType | SimilarGame;
 
-const DefaultCard: FC<DefaultCardProps> = ({ cover, name, id, genres }) => {
+const DefaultCard: FC<DefaultCardProps> = ({ cover, name, id, genres, release_dates }) => {
+  const findReleaseDate = release_dates?.find((item) => item.platform === 6);
+
   return (
     <Card className="group relative m-0 mt-3 w-[200px] rounded-t-lg p-0 overflow-hidden">
       <CardContent className="p-0 m-0">
@@ -29,16 +26,24 @@ const DefaultCard: FC<DefaultCardProps> = ({ cover, name, id, genres }) => {
           <div className="flex flex-col items-center justify-center w-full gap-4 p-2">
             <div className="flex flex-col w-full gap-1">
               <h4 className="font-medium text-center text-white whitespace-pre-line break-before-avoid">{name}</h4>
+
+              {!!findReleaseDate && !!findReleaseDate?.date && (
+                <div className="flex items-center justify-center">
+                  <p className="text-xs text-slate-400">{dayjs(findReleaseDate?.date * 1000).format('MMMM D, YYYY')}</p>
+                </div>
+              )}
+
               <ul className="flex items-center justify-center w-full gap-1 px-2 text-xs text-slate-400 line-clamp-1">
-                {genres.slice(0, 2).map((genre, i) => (
-                  <li
-                    className="whitespace-nowrap line-clamp-1"
-                    key={i}
-                  >
-                    {genre.name}
-                    {i !== genres.slice(0, 2).length - 1 ? ',' : ''}
-                  </li>
-                ))}
+                {!!genres?.length &&
+                  genres.slice(0, 2).map((genre, i) => (
+                    <li
+                      className="whitespace-nowrap line-clamp-1"
+                      key={i}
+                    >
+                      {genre.name}
+                      {i !== genres.slice(0, 2).length - 1 ? ',' : ''}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
@@ -46,9 +51,10 @@ const DefaultCard: FC<DefaultCardProps> = ({ cover, name, id, genres }) => {
           <Link
             className={buttonVariants({
               variant: 'secondary',
+              className: 'mt-5',
             })}
             to={`/info/$id`}
-            params={{ id }}
+            params={{ id: id.toString() }}
           >
             More Info
           </Link>

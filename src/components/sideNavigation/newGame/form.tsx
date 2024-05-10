@@ -1,6 +1,6 @@
 import NewGameSetting from '@/components/sideNavigation/newGame/setting';
 import { Button } from '@/components/ui/button';
-import { DialogFooter } from '@/components/ui/dialog';
+import { DialogClose, DialogFooter } from '@/components/ui/dialog';
 import { Form, FormField } from '@/components/ui/form';
 import { GameStoreHelper } from '@/utils/stores';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -213,12 +213,9 @@ const NewGameForm: FC<NewGameFormProps> = ({ setOpen }) => {
       </form>
 
       <DialogFooter className="pt-2">
-        <Button
-          variant={'destructive'}
-          onClick={() => setOpen(false)}
-        >
-          Cancel
-        </Button>
+        <DialogClose>
+          <Button variant={'destructive'}>Cancel</Button>
+        </DialogClose>
         <Button
           variant="secondary"
           onClick={form.handleSubmit(onSubmit)}

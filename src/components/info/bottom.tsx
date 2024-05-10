@@ -14,6 +14,7 @@ const InfoBottom: FC<InfoReturn & InfoProps> = (props) => {
     if (!props.steam?.data) return;
     if (platform === 'unknown') return;
 
+<<<<<<< HEAD
     const data = props.steam?.data;
 
     switch (platform) {
@@ -32,6 +33,13 @@ const InfoBottom: FC<InfoReturn & InfoProps> = (props) => {
 
   console.log({ findRequirements });
 
+=======
+    // const data = props.steam?.data;
+
+    return props.steam?.data.pc_requirements;
+  }, [platform]);
+
+>>>>>>> main
   return (
     <div className="flex flex-col gap-6 mt-5">
       <SimilarGames data={similar_games} />

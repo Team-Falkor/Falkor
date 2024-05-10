@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import { IGDBReturnDataType, SimilarGame } from '@/utils/api/igdb/types';
+>>>>>>> main
 import { os } from '@tauri-apps/api';
 
 /**
@@ -93,3 +97,25 @@ export const getRealOs = async (): Promise<'windows' | 'macos' | 'linux' | 'unkn
       return 'unknown';
   }
 };
+<<<<<<< HEAD
+=======
+
+/**
+ * https://api-docs.igdb.com/#game-enums
+ * 0 = main game
+ * 8 = remake
+ * 9 = remaster
+ * 10 = expanded game
+ * 11 = port
+ * 12 = fork
+ */
+export const allowedGameCategories: number[] = [0, 8, 9, 10, 11, 12];
+
+export const FilterOutNonePcGames = <T extends IGDBReturnDataType | SimilarGame>(games: T[]): T[] => {
+  return games?.filter(
+    (game) =>
+      game.platforms?.some((platform) => platform.abbreviation === 'PC') &&
+      allowedGameCategories.includes(game.category),
+  );
+};
+>>>>>>> main

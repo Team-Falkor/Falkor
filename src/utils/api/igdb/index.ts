@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 import { ApiResponse, IGDBReturnDataType, InfoReturn } from '@/utils/api/igdb/types';
+=======
+import { searchEasterEggs } from '@/utils/api/igdb/helpers';
+import { ApiResponse, IGDBReturnDataType, InfoReturn } from '@/utils/api/igdb/types';
+import { FilterOutNonePcGames } from '@/utils/utils';
+>>>>>>> main
 import { http } from '@tauri-apps/api';
 import { Body } from '@tauri-apps/api/http';
 
@@ -28,27 +34,16 @@ export class IGDB {
   checkAndRenewToken = async () => !!(Date.now() >= this.tokenExpiration - 100) && (await this.getAccessToken());
 
   async search(query: string): Promise<IGDBReturnDataType[]> {
+    let realQuery = query;
+    const findEasterEgg = searchEasterEggs.find((egg) => egg.name === query.toLowerCase());
+    if (findEasterEgg) realQuery = findEasterEgg.query;
+
     const data = await this.makeReq<IGDBReturnDataType[]>('games', {
-      search: query,
+      search: realQuery,
     });
 
     // filter out none pc games and category !== 0
-    return data.filter(
-      (game) =>
-        game.platforms?.some((platform) => platform.abbreviation === 'PC') &&
-        // 0 = main_game
-        (game.category === 0 ||
-          // 8 = remake
-          game.category === 8 ||
-          // 9 = remaster
-          game.category === 9 ||
-          // 10 = expanded_game
-          game.category === 10 ||
-          // 11 = port
-          game.category === 11 ||
-          // 12 = fork
-          game.category === 12),
-    );
+    return FilterOutNonePcGames(data);
   }
 
   async info(id: string): Promise<InfoReturn> {
@@ -80,6 +75,14 @@ export class IGDB {
     return await this.makeReq<IGDBReturnDataType[]>('games', {
       sort: 'hypes desc',
       where: `platforms.abbreviation = "PC" & hypes != n & first_release_date > ${DateNow}`,
+    });
+  }
+
+  async newReleases(): Promise<IGDBReturnDataType[]> {
+    const DateNow = (new Date().getTime() / 1000).toFixed();
+    return await this.makeReq<IGDBReturnDataType[]>('games', {
+      sort: 'first_release_date desc',
+      where: `platforms.abbreviation = "PC" & hypes != n & first_release_date < ${DateNow}`,
     });
   }
 
@@ -124,6 +127,8 @@ export class IGDB {
         'similar_games.screenshots.*',
         'similar_games.cover.*',
         'similar_games.genres.*',
+        'similar_games.release_dates.*',
+        'similar_games.platforms.*',
         'artworks.*',
       ];
 

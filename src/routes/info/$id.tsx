@@ -56,7 +56,7 @@ function Info() {
   if (error) return null;
 
   return (
-    <div className="relative w-full h-full pb-20 ">
+    <div className="relative w-full h-full pb-20">
       <div className="absolute top-0 left-0 z-10 mx-10 mt-3">
         <Button
           variant="ghost"
@@ -73,7 +73,7 @@ function Info() {
         ) : (
           <div className="relative w-full overflow-hidden rounded-b-lg h-96">
             <IGDBImage
-              imageId={data?.screenshots?.[0]?.image_id ?? ''}
+              imageId={data?.screenshots?.[0]?.image_id ?? data?.cover?.image_id ?? ''}
               alt={data?.name}
               className="relative z-0 object-cover w-full h-full overflow-hidden"
               imageSize="screenshot_big"
@@ -84,7 +84,7 @@ function Info() {
         )}
       </div>
 
-      <div className="relative z-10 max-w-6xl px-4 mx-auto sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-6xl px-4 mx-auto lg:max-w-screen-2xl sm:px-6 lg:px-8">
         <InfoTop
           data={data}
           isReleased={isReleased}

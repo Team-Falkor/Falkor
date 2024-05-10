@@ -5,9 +5,13 @@ import MiscellaneousSettings from '@/components/setting/tabs/miscellaneous';
 import Plugins from '@/components/setting/tabs/plugins';
 import TorrentSettings from '@/components/setting/tabs/torrent';
 import SettingTab from '@/components/settings/settingTab';
+import { Button } from '@/components/ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { createLazyFileRoute } from '@tanstack/react-router';
-import { Blocks, Code2, Cog, FileCog2, Settings2, UserCog } from 'lucide-react';
+import { open } from '@tauri-apps/api/shell';
+import { Blocks, Code2, Coffee, Cog, FileCog2, Settings2, UserCog } from 'lucide-react';
 import { useState } from 'react';
+import { FaDiscord, FaGithub } from 'react-icons/fa6';
 
 export const Route = createLazyFileRoute('/settings')({
   component: RouteComponent,
@@ -16,15 +20,19 @@ export const Route = createLazyFileRoute('/settings')({
 function RouteComponent() {
   const [currentTab, setCurrentTab] = useState(0);
 
+  const openLink = (url: string) => {
+    open(url);
+  };
+
   return (
-    <div className="w-full h-screen py-16 m-auto max-w-7xl">
+    <div className="w-full h-screen py-16 m-auto max-w-7xl lg:max-w-[1650px]">
       <div className="flex flex-row justify-between w-full h-full rounded-lg ring-1 ring-muted">
         <div className="flex flex-col h-full border-r w-80">
           <div className="p-3 px-4 border-b">
             <h1 className="text-xl font-bold">Settings</h1>
           </div>
 
-          <nav className="mt-5 space-y-3">
+          <nav className="flex-1 mt-5 space-y-3">
             <SettingTab
               icon={<Cog />}
               title="General"
@@ -67,9 +75,52 @@ function RouteComponent() {
               onClick={() => setCurrentTab(5)}
             />
           </nav>
+
+          <div className="flex justify-between p-3 px-4 border-t">
+            <div className="flex gap-1">
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    onClick={() => openLink('https://github.com/team-falkor/falkor')}
+                    variant="ghost"
+                    size="icon"
+                  >
+                    <FaDiscord size={24} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Join the Discord!</TooltipContent>
+              </Tooltip>
+
+              <Tooltip>
+                <TooltipTrigger>
+                  <Button
+                    onClick={() => openLink('https://github.com/team-falkor/falkor')}
+                    variant="ghost"
+                    size="icon"
+                  >
+                    <FaGithub size={24} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>Star us on GitHub!</TooltipContent>
+              </Tooltip>
+            </div>
+
+            <Tooltip>
+              <TooltipTrigger>
+                <Button
+                  onClick={() => openLink('https://buymeacoffee.com/tdanks2000')}
+                  variant="ghost"
+                  size="icon"
+                >
+                  <Coffee />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Buy me a coffee!</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
 
-        <div className="flex flex-col w-full h-full">
+        <div className="flex flex-col w-full h-full overflow-hidden">
           <GeneralSetting
             currentIndex={currentTab}
             index={0}
