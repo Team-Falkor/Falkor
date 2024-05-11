@@ -1,5 +1,6 @@
 import List from '@/components/libary/List';
 import ContuinePlaying from '@/components/libary/continue';
+import MainContainer from '@/containers/mainContainer';
 import { createLazyFileRoute } from '@tanstack/react-router';
 
 export const Route = createLazyFileRoute('/libary')({
@@ -8,7 +9,7 @@ export const Route = createLazyFileRoute('/libary')({
 
 function Libary() {
   return (
-    <div className="relative w-full h-full p-6 overflow-x-hidden max-w-[1350px] lg:max-w-[1700px] ml-auto mr-auto">
+    <MainContainer>
       <div className="flex flex-col w-full h-full gap-10">
         <ContuinePlaying />
 
@@ -26,6 +27,6 @@ function Libary() {
           />
         </div>
       </div>
-    </div>
+    </MainContainer>
   );
 }
