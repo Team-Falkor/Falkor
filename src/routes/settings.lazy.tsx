@@ -7,6 +7,7 @@ import TorrentSettings from '@/components/setting/tabs/torrent';
 import SettingTab from '@/components/settings/settingTab';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import MainContainer from '@/containers/mainContainer';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { open } from '@tauri-apps/api/shell';
 import { Blocks, Code2, Coffee, Cog, FileCog2, Settings2, UserCog } from 'lucide-react';
@@ -25,7 +26,7 @@ function RouteComponent() {
   };
 
   return (
-    <div className="w-full h-screen py-16 m-auto max-w-7xl lg:max-w-[1650px]">
+    <MainContainer>
       <div className="flex flex-row justify-between w-full h-full rounded-lg ring-1 ring-muted">
         <div className="flex flex-col h-full border-r w-80">
           <div className="p-3 px-4 border-b">
@@ -152,6 +153,6 @@ function RouteComponent() {
           />
         </div>
       </div>
-    </div>
+    </MainContainer>
   );
 }
