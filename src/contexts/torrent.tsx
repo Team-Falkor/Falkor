@@ -27,7 +27,7 @@ export function useTorrent() {
 
 const getConfig = async () => {
   try {
-    const [currentConfig, defaultConfig] = await Promise.all([get_current_config(), get_default_config()]);
+    const [_currentConfig, defaultConfig] = await Promise.all([get_current_config(), get_default_config()]);
 
     // if (currentConfig.configured && currentConfig.config) {
     //   console.log(`Loading current torrent config`);
