@@ -1,5 +1,6 @@
 import { InfoItadProps, InfoProps } from '@/@types';
 import IGDBImage from '@/components/IGDBImage';
+import CollectionDropdown from '@/components/info/Collection';
 import DownloadDialog from '@/components/info/downloadDialog';
 import QuickInfo from '@/components/info/quickInfo';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -35,17 +36,22 @@ const InfoTop: FC<InfoTopProps> = (props) => {
         <section className="flex items-end justify-between w-full gap-3">
           {isPending && <Skeleton className="w-56 h-10" />}
           {!isPending && <h1 className="text-2xl font-bold truncate">{data!.name}</h1>}
-          {isPending && <Skeleton className="w-32 h-10" />}
-          {!isPending && (
-            <DownloadDialog
-              title={data!.name}
-              isReleased={isReleased}
-              websites={data!.websites}
-              itadData={itadData}
-              itadError={itadError}
-              itadPending={itadPending}
-            />
-          )}
+
+          <div className="flex justify-end gap-4">
+            {isPending && <Skeleton className="w-32 h-10" />}
+            {!isPending && <CollectionDropdown />}
+            {isPending && <Skeleton className="w-32 h-10" />}
+            {!isPending && (
+              <DownloadDialog
+                title={data!.name}
+                isReleased={isReleased}
+                websites={data!.websites}
+                itadData={itadData}
+                itadError={itadError}
+                itadPending={itadPending}
+              />
+            )}
+          </div>
         </section>
 
         <div className="mt-5">

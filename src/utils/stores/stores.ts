@@ -3,8 +3,9 @@ import { RealDebridSettings } from '@/hooks/useRealDebridLogin/utils';
 import { Store } from 'tauri-plugin-store-api';
 
 export const settingsStore = new Store('.settings.dat');
-
 export const gamesStore = new Store('.games.dat');
+export const collectionsStore = new Store('.collections.dat');
+export const gameDataStore = new Store('.game-data.dat');
 
 export const setRealDebridData = async (credentials: RealDebridSettings) => {
   await settingsStore.set('real-debrid', credentials);

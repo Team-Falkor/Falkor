@@ -43,7 +43,7 @@ const DownloadDialog: FC<DownloadDialogProps> = ({ isReleased, itadData }) => {
           variant={'secondary'}
           disabled={!isReleased}
         >
-          <Download className="w-4 h-4 mr-2" />
+          <Download className="mr-2 size-4" />
           {isReleased ? 'Download' : 'Not Released'}
         </Button>
       </DialogTrigger>

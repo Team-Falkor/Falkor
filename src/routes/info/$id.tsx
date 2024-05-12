@@ -55,7 +55,7 @@ function Info() {
   if (error) return null;
 
   return (
-    <div className="relative w-full h-full pb-20">
+    <div className="relative w-full h-full pb-20 overflow-x-hidden">
       <div className="absolute top-0 left-0 z-10 mx-10 mt-3">
         <Button
           variant="ghost"

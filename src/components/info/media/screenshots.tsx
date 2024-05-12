@@ -15,12 +15,12 @@ const MediaScreenshots: FunctionComponent<MediaScreenshotsProps> = ({ screenshot
   if (!screenshots?.length) return null;
 
   return (
-    <div className="flex gap-2 mt-5">
-      <div className="w-1/2">
+    <div className="flex gap-2 mt-5 overflow-hidden">
+      <div className="w-1/2 h-full">
         <IGDBImage
           imageId={screenshots && screenshots[0] ? screenshots[0].image_id : ''}
           alt={name}
-          className="h-full max-h-[310px] w-full rounded-lg object-cover"
+          className="object-cover w-full h-full rounded-lg"
         />
       </div>
 
