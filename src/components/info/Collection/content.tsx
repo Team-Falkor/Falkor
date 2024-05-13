@@ -5,42 +5,55 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { useState } from 'react';
+import useCollection from '@/hooks/useCollection';
+import { IGDBReturnDataType } from '@/utils/api/igdb/types';
+import { PlusIcon } from 'lucide-react';
+import { FC, useEffect, useState } from 'react';
 
-const CollectionDropdownContent = () => {
-  let [checked, setChecked] = useState(false);
+interface CollectionDropdownContentProps {
+  game: IGDBReturnDataType;
+}
+
+const CollectionDropdownContent: FC<CollectionDropdownContentProps> = ({ game }) => {
+  const { getCollectionNames } = useCollection();
+  const [collections, setCollections] = useState<string[]>([]);
+
+  useEffect(() => {
+    getCollectionNames().then((res) => {
+      setCollections(res);
+    });
+  }, []);
 
   return (
     <DropdownMenuContent className="max-w-sm">
-      <DropdownMenuLabel>Add to Collection</DropdownMenuLabel>
+      <DropdownMenuLabel className="w-full truncate">Add to Collection: {game.name}</DropdownMenuLabel>
 
       <DropdownMenuSeparator />
 
-      <ScrollArea className="h-24">
-        <CollectionDropdownItem
-          checked={checked}
-          setChecked={() => {
-            setChecked(!checked);
-          }}
-        >
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor dicta doloremque obcaecati? Cumque aut quae
-          voluptatibus tempore consectetur iusto esse quidem nulla animi rerum, adipisci reprehenderit doloribus sint
-          inventore sequi?
-        </CollectionDropdownItem>
-        <CollectionDropdownItem
-          checked={false}
-          setChecked={() => {
-            console.log('checked');
-          }}
-        >
-          List 2
-        </CollectionDropdownItem>
-      </ScrollArea>
+      <div className="overflow-y-auto max-h-24">
+        {!collections?.length ? (
+          <div className="flex items-center justify-center gap-2 p-2">
+            <p className="text-center">No collections found! Create a new one</p>
+          </div>
+        ) : (
+          collections.map((collection) => (
+            <CollectionDropdownItem
+              key={collection}
+              collectionName={collection}
+              game={game}
+            />
+          ))
+        )}
+      </div>
 
       <DropdownMenuSeparator />
 
-      <DropdownMenuItem>Create a new collection</DropdownMenuItem>
+      <DropdownMenuItem>
+        <div className="flex items-center gap-1.5">
+          <PlusIcon className="size-5" />
+          <p className="text-sm">Create a new collection</p>
+        </div>
+      </DropdownMenuItem>
     </DropdownMenuContent>
   );
 };

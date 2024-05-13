@@ -39,7 +39,7 @@ const InfoTop: FC<InfoTopProps> = (props) => {
 
           <div className="flex justify-end gap-4">
             {isPending && <Skeleton className="w-32 h-10" />}
-            {!isPending && <CollectionDropdown />}
+            {!isPending && !!data && <CollectionDropdown game={data} />}
             {isPending && <Skeleton className="w-32 h-10" />}
             {!isPending && (
               <DownloadDialog

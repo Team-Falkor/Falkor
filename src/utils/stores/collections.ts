@@ -71,6 +71,17 @@ class CollectionsStoreHandler {
   async getCollection(collectionName: string) {
     return await this.collections.get<Collection>(collectionName);
   }
+
+  async isGameInCollection(collectionName: string, gameId: number) {
+    const collection = await this.getCollection(collectionName);
+
+    if (!collection) {
+      console.log(`cannot find a collection with name ${collectionName}`);
+      return false;
+    }
+
+    return collection.games.includes(gameId);
+  }
 }
 
 export const collectionsStoreHandler = new CollectionsStoreHandler();
