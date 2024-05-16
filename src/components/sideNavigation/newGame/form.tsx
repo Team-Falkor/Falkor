@@ -2,6 +2,7 @@ import NewGameSetting from '@/components/sideNavigation/newGame/setting';
 import { Button } from '@/components/ui/button';
 import { DialogClose, DialogFooter } from '@/components/ui/dialog';
 import { Form, FormField } from '@/components/ui/form';
+import { useShouldUpdateGamesUi } from '@/stores';
 import { GameStoreHelper } from '@/utils/stores';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { open } from '@tauri-apps/api/dialog';
@@ -28,6 +29,8 @@ interface NewGameFormProps {
 }
 
 const NewGameForm: FC<NewGameFormProps> = ({ setOpen }) => {
+  const { setShouldUpdateGamesUi } = useShouldUpdateGamesUi();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -84,6 +87,8 @@ const NewGameForm: FC<NewGameFormProps> = ({ setOpen }) => {
         command: values.gameCommand,
         lastPlayed: new Date(),
       });
+
+      setShouldUpdateGamesUi(true);
     } catch (error) {
       toast.error('Failed to add game');
     } finally {

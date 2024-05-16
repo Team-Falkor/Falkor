@@ -11,6 +11,7 @@ import Search from '@/components/sideNavigation/search';
 import { Popover, PopoverTrigger } from '@/components/ui/popover';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
+import { useShouldUpdateGamesUi } from '@/stores';
 import { GameStoreHelper, GameStoreInfo } from '@/utils/stores';
 import { Link } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
@@ -18,6 +19,7 @@ import { useEffect, useState } from 'react';
 const SideNavigation = () => {
   const [open, setOpen] = useState(false);
   const [games, setGames] = useState<GameStoreInfo[]>([]);
+  const { setShouldUpdateGamesUi, shouldUpdateGamesUi } = useShouldUpdateGamesUi();
 
   const getGames = async () => {
     const games = (await GameStoreHelper.getAll())
@@ -31,11 +33,15 @@ const SideNavigation = () => {
       })
       .slice(0, 6);
     setGames(games);
+
+    setShouldUpdateGamesUi(false);
   };
 
   useEffect(() => {
+    if (!shouldUpdateGamesUi) return;
+
     getGames();
-  }, []);
+  }, [shouldUpdateGamesUi]);
 
   return (
     <aside className="fixed left-0 z-20 flex flex-col h-full border-r inset-y">

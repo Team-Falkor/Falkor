@@ -37,6 +37,7 @@ const GenericRow: FC<GenericRowProps> = ({ dataToFetch }) => {
           >
             <DefaultCard
               key={game.id}
+              wantCountdown={dataToFetch === 'mostAnticipated'}
               {...game}
             />
           </CarouselItem>
