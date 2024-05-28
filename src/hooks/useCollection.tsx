@@ -29,12 +29,19 @@ const useCollection = (collectionName?: string) => {
     return await collection.current.getCollectionNames();
   };
 
+  const getCollectionAndGames = async () => {
+    if (!collectionName) return collectionError();
+    return await collection.current.getCollectionAndGames(collectionName);
+  };
+
   return {
     isGameInCollection,
     addToCollection,
     removeFromCollection,
     getCollection,
     getCollectionNames,
+    getCollectionAndGames,
+    collectionRef: collection?.current,
   };
 };
 

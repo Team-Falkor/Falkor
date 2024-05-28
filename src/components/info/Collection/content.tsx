@@ -1,4 +1,5 @@
 import CollectionDropdownItem from '@/components/info/Collection/item';
+import { DialogTrigger } from '@/components/ui/dialog';
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -49,10 +50,12 @@ const CollectionDropdownContent: FC<CollectionDropdownContentProps> = ({ game })
       <DropdownMenuSeparator />
 
       <DropdownMenuItem>
-        <div className="flex items-center gap-1.5">
-          <PlusIcon className="size-5" />
-          <p className="text-sm">Create a new collection</p>
-        </div>
+        <DialogTrigger>
+          <div className="flex items-center gap-1.5">
+            <PlusIcon className="size-5" />
+            <p className="text-sm">Create a new collection</p>
+          </div>
+        </DialogTrigger>
       </DropdownMenuItem>
     </DropdownMenuContent>
   );

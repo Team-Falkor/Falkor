@@ -68,6 +68,19 @@ class CollectionsStoreHandler {
     return await this.collections.keys();
   }
 
+  async getCollectionAndGames(collectionName: string) {
+    const collectionData = await this.collections.get<Collection>(collectionName);
+
+    if (!collectionData) {
+      console.log(`cannot find a collection with name ${collectionName}`);
+      return;
+    }
+
+    const gameData = await this.gameStoreHelper.getGames(collectionData.games);
+
+    return { ...collectionData, games: gameData };
+  }
+
   async getCollection(collectionName: string) {
     return await this.collections.get<Collection>(collectionName);
   }

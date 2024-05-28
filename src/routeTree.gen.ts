@@ -54,22 +54,37 @@ const InfoIdRoute = InfoIdImport.update({
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
     '/libary': {
+      id: '/libary'
+      path: '/libary'
+      fullPath: '/libary'
       preLoaderRoute: typeof LibaryLazyImport
       parentRoute: typeof rootRoute
     }
     '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
       preLoaderRoute: typeof SettingsLazyImport
       parentRoute: typeof rootRoute
     }
     '/info/$id': {
+      id: '/info/$id'
+      path: '/info/$id'
+      fullPath: '/info/$id'
       preLoaderRoute: typeof InfoIdImport
       parentRoute: typeof rootRoute
     }
@@ -78,12 +93,44 @@ declare module '@tanstack/react-router' {
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([
+export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   AboutLazyRoute,
   LibaryLazyRoute,
   SettingsLazyRoute,
   InfoIdRoute,
-])
+})
 
 /* prettier-ignore-end */
+
+/* ROUTE_MANIFEST_START
+{
+  "routes": {
+    "__root__": {
+      "filePath": "__root.tsx",
+      "children": [
+        "/",
+        "/about",
+        "/libary",
+        "/settings",
+        "/info/$id"
+      ]
+    },
+    "/": {
+      "filePath": "index.lazy.tsx"
+    },
+    "/about": {
+      "filePath": "about.lazy.tsx"
+    },
+    "/libary": {
+      "filePath": "libary.lazy.tsx"
+    },
+    "/settings": {
+      "filePath": "settings.lazy.tsx"
+    },
+    "/info/$id": {
+      "filePath": "info/$id.tsx"
+    }
+  }
+}
+ROUTE_MANIFEST_END */

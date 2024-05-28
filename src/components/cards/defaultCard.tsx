@@ -10,7 +10,7 @@ type DefaultCardProps = (IGDBReturnDataType | SimilarGame) & {
   wantCountdown?: boolean;
 };
 
-const DefaultCard: FC<DefaultCardProps> = ({ cover, name, id, genres, release_dates, wantCountdown }) => {
+const DefaultCard: FC<DefaultCardProps> = ({ cover, name, id, genres, release_dates }) => {
   const findReleaseDate = release_dates?.find((item) => item.platform === 6);
 
   return (

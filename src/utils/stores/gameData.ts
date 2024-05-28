@@ -11,6 +11,8 @@ class GameDataStoreHelper {
   }
 
   async getGames(games: number[]) {
+    if (games.length === 0) return [];
+
     const gameData = await Promise.all(
       games.map(async (id) => {
         return await this.getGame(id);
