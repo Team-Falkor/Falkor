@@ -1,5 +1,5 @@
 import { Button, buttonVariants } from '@/components/ui/button';
-import { BellIcon, HomeIcon, LibraryIcon, SearchIcon, Settings2 } from 'lucide-react';
+import { HomeIcon, LibraryIcon, SearchIcon, Settings2 } from 'lucide-react';
 
 import bg from '@/assets/bg.jpeg';
 import logo from '@/assets/icon.png';
@@ -123,11 +123,11 @@ const SideNavigation = () => {
           </nav>
 
           <nav className="grid gap-2 p-2">
-            <NavItem
+            {/* <NavItem
               type="button"
               title="Notifications"
               icon={<BellIcon />}
-            />
+            /> */}
 
             <SideNavigationDownloads />
           </nav>
