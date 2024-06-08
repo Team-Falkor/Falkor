@@ -33,7 +33,7 @@ const GenericRow: FC<GenericRowProps> = ({ dataToFetch }) => {
         {data?.map((game) => (
           <CarouselItem
             key={game.id}
-            className="md:basis-[16%] sm:basis-1/6 lg:basis-[14.5%]"
+            className="md:basis-[12%] basis-1/6 2xl:basis-[14.5%] xl:basis-[17.77%]"
           >
             <DefaultCard
               key={game.id}

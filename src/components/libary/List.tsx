@@ -36,7 +36,7 @@ const List: FunctionComponent<ListProps> = ({ name }) => {
               (game) =>
                 !!game && (
                   <CarouselItem
-                    className="md:basis-[16%] sm:basis-1/6 lg:basis-[14.5%]"
+                    className="md:basis-[12%] basis-1/6 2xl:basis-[14.5%] xl:basis-[17.77%]"
                     key={game.id}
                   >
                     <DefaultCard {...game} />

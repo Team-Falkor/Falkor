@@ -35,7 +35,7 @@ const SimilarGames: FC<SimilarGamesProps> = ({ data }) => {
           {items.map((game) => (
             <CarouselItem
               key={game.id}
-              className="md:basis-[15%] sm:basis-1/6 lg:basis-[15%]"
+              className="md:basis-[11%] basis-1/5 2xl:basis-[16.7%] xl:basis-[17.7%]"
             >
               <DefaultCard
                 key={game.id}

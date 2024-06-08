@@ -83,7 +83,7 @@ function Info() {
         )}
       </div>
 
-      <div className="relative z-10 max-w-6xl px-4 mx-auto lg:max-w-screen-2xl sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-screen-xl px-4 mx-auto xl:max-w-7xl sm:px-6 lg:px-8">
         <InfoTop
           data={data}
           isReleased={isReleased}
