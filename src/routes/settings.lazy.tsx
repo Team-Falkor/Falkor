@@ -109,7 +109,7 @@ function RouteComponent() {
             <Tooltip>
               <TooltipTrigger>
                 <Button
-                  onClick={() => openLink('https://buymeacoffee.com/tdanks2000')}
+                  onClick={() => openLink('https://ko-fi.com/tdanks2000')}
                   variant="ghost"
                   size="icon"
                 >
