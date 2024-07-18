@@ -1,25 +1,35 @@
-import { Button, buttonVariants } from '@/components/ui/button';
-import { HomeIcon, LibraryIcon, SearchIcon, Settings2 } from 'lucide-react';
+import { Button, buttonVariants } from "@/components/ui/button";
+import { HomeIcon, LibraryIcon, SearchIcon, Settings2 } from "lucide-react";
 
-import bg from '@/assets/bg.jpeg';
-import logo from '@/assets/icon.png';
-import SideNavigationDownloads from '@/components/sideNavigation/downloads';
-import NavItem from '@/components/sideNavigation/item';
-import NewGame from '@/components/sideNavigation/newGame';
-import RecentGame from '@/components/sideNavigation/recentGame';
-import Search from '@/components/sideNavigation/search';
-import { Popover, PopoverTrigger } from '@/components/ui/popover';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
-import { useShouldUpdateGamesUi } from '@/stores';
-import { GameStoreHelper, GameStoreInfo } from '@/utils/stores';
-import { Link } from '@tanstack/react-router';
-import { useEffect, useState } from 'react';
+import { SettingOption } from "@/@types";
+import bg from "@/assets/bg.jpeg";
+import logo from "@/assets/icon.png";
+import SideNavigationDownloads from "@/components/sideNavigation/downloads";
+import NavItem from "@/components/sideNavigation/item";
+import NewGame from "@/components/sideNavigation/newGame";
+import RecentGame from "@/components/sideNavigation/recentGame";
+import Search from "@/components/sideNavigation/search";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import useGeneralSetting from "@/hooks/useGeneralSetting";
+import { cn } from "@/lib/utils";
+import { useShouldUpdateGamesUi } from "@/stores";
+import { GameStoreHelper, GameStoreInfo } from "@/utils/stores";
+import { Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 const SideNavigation = () => {
+  const { settingsState } = useGeneralSetting<boolean>({
+    key: SettingOption["use-bg-on-sidebar"],
+  });
   const [open, setOpen] = useState(false);
   const [games, setGames] = useState<GameStoreInfo[]>([]);
-  const { setShouldUpdateGamesUi, shouldUpdateGamesUi } = useShouldUpdateGamesUi();
+  const { setShouldUpdateGamesUi, shouldUpdateGamesUi } =
+    useShouldUpdateGamesUi();
 
   const getGames = async () => {
     const games = (await GameStoreHelper.getAll())
@@ -46,10 +56,12 @@ const SideNavigation = () => {
   return (
     <aside className="fixed left-0 z-20 flex flex-col h-full border-r inset-y">
       <div className="relative w-full h-full">
-        <img
-          src={bg}
-          className="absolute inset-0 z-10 object-cover object-center w-full h-full opacity-10"
-        />
+        {!!settingsState && (
+          <img
+            src={bg}
+            className="absolute inset-0 z-10 object-cover object-center w-full h-full opacity-10"
+          />
+        )}
 
         <div className="relative z-20 flex flex-col h-screen overflow-hidden border-r bg-opacity-5">
           <div className="p-2 border-b">
@@ -58,30 +70,26 @@ const SideNavigation = () => {
                 <Link
                   aria-label="Home"
                   className={buttonVariants({
-                    variant: 'ghost',
-                    size: 'icon',
+                    variant: "ghost",
+                    size: "icon",
                   })}
                 >
-                  <img
-                    src={logo}
-                    className="size-9"
-                  />
+                  <img src={logo} className="size-9" />
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">Falkor The luck of the draw</TooltipContent>
+              <TooltipContent side="right">
+                Falkor The luck of the draw
+              </TooltipContent>
             </Tooltip>
           </div>
           <nav className="grid gap-2 p-2">
-            <Popover
-              open={open}
-              onOpenChange={setOpen}
-            >
+            <Popover open={open} onOpenChange={setOpen}>
               <PopoverTrigger>
                 <Button
                   variant="ghost"
                   size="icon"
                   className={cn({
-                    'bg-muted': open,
+                    "bg-muted": open,
                   })}
                 >
                   <SearchIcon className="size-5" />
@@ -90,22 +98,10 @@ const SideNavigation = () => {
               <Search setOpen={setOpen} />
             </Popover>
 
-            <NavItem
-              href="/"
-              title="Home"
-              icon={<HomeIcon />}
-            />
+            <NavItem href="/" title="Home" icon={<HomeIcon />} />
 
-            <NavItem
-              href="/libary"
-              title="My Games"
-              icon={<LibraryIcon />}
-            />
-            <NavItem
-              href="/settings"
-              title="Settings"
-              icon={<Settings2 />}
-            />
+            <NavItem href="/libary" title="My Games" icon={<LibraryIcon />} />
+            <NavItem href="/settings" title="Settings" icon={<Settings2 />} />
           </nav>
 
           <nav className="flex flex-col flex-1 gap-3 p-2 border-t border-b">

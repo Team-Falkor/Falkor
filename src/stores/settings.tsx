@@ -1,14 +1,14 @@
-import { RealDebridUser } from '@/@types';
-import { RealDebridSettings } from '@/hooks/useRealDebridLogin/utils';
-import { create } from 'zustand';
+import { RealDebridUser } from "@/@types";
+import { RealDebridSettings } from "@/hooks/useRealDebridLogin/utils";
+import { create } from "zustand";
 
 type OS = {
-  platform: 'windows' | 'macos' | 'linux' | 'unknown';
-  setPlatform: (platform: 'windows' | 'macos' | 'linux' | 'unknown') => void;
+  platform: "windows" | "macos" | "linux" | "unknown";
+  setPlatform: (platform: "windows" | "macos" | "linux" | "unknown") => void;
 };
 
 export const useOS = create<OS>((set) => ({
-  platform: 'unknown',
+  platform: "unknown",
   setPlatform: (platform) => set({ platform }),
 }));
 
@@ -26,4 +26,20 @@ export const useRealDebridStore = create<RealDebrid>((set) => ({
 
   userInfo: null,
   setUserInfo: (userInfo) => set({ userInfo }),
+}));
+
+type Settings = {
+  settings: Map<string, any>;
+  setSetting: (key: string, value: any) => void;
+};
+
+export const useSettingsStore = create<Settings>((set) => ({
+  settings: new Map(),
+
+  setSetting: (key, value) => {
+    set((state) => {
+      state.settings.set(key, value);
+      return state;
+    });
+  },
 }));

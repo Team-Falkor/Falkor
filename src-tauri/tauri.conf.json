@@ -36,7 +36,7 @@
         "removeDir": true,
         "removeFile": true,
         "renameFile": true,
-        "scope": ["$APPDATA/**"],
+        "scope": ["$APPDATA/**", "**"],
         "writeFile": true
       },
       "globalShortcut": {
@@ -89,7 +89,13 @@
         "files": {}
       },
       "externalBin": [],
-      "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
       "identifier": "com.falkor.dev",
       "longDescription": "",
       "macOS": {

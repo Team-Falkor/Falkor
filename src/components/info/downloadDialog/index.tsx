@@ -1,23 +1,22 @@
-import { InfoItadProps } from '@/@types';
-import DownloadDialogPopover from '@/components/info/downloadDialog/popover';
-import { Button } from '@/components/ui/button';
+import { InfoItadProps } from "@/@types";
+import DownloadDialogPopover from "@/components/info/downloadDialog/popover";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
-import { Tooltip, TooltipTrigger } from '@/components/ui/tooltip';
-import { Website } from '@/utils/api/igdb/types';
-import { TooltipContent } from '@radix-ui/react-tooltip';
-import { open } from '@tauri-apps/api/shell';
-import { ChevronsRight, Coins, Download, ShoppingCart, StarIcon, XCircle } from 'lucide-react';
-import { FC, useState } from 'react';
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
+import { Website } from "@/utils/api/igdb/types";
+import { TooltipContent } from "@radix-ui/react-tooltip";
+import { open } from "@tauri-apps/api/shell";
+import { Coins, Download, ShoppingCart, StarIcon, XCircle } from "lucide-react";
+import { FC, useState } from "react";
 
 interface DownloadDialogProps extends InfoItadProps {
   title: string;
@@ -27,8 +26,8 @@ interface DownloadDialogProps extends InfoItadProps {
 
 const providers = [
   {
-    value: 'itad',
-    label: 'IsThereAnyDeal',
+    value: "itad",
+    label: "IsThereAnyDeal",
   },
 ];
 
@@ -39,12 +38,9 @@ const DownloadDialog: FC<DownloadDialogProps> = ({ isReleased, itadData }) => {
   return (
     <Dialog>
       <DialogTrigger disabled={!isReleased}>
-        <Button
-          variant={'secondary'}
-          disabled={!isReleased}
-        >
+        <Button variant={"secondary"} disabled={!isReleased}>
           <Download className="mr-2 size-4" />
-          {isReleased ? 'Download' : 'Not Released'}
+          {isReleased ? "Download" : "Not Released"}
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -65,12 +61,11 @@ const DownloadDialog: FC<DownloadDialogProps> = ({ isReleased, itadData }) => {
         <ScrollArea className="w-full border rounded-md h-72">
           <div>
             <div className="sticky top-0 left-0 right-0 mb-3 bg-muted">
-              <h4 className="p-3 pb-1 text-sm font-medium leading-none">Sources</h4>
+              <h4 className="p-3 pb-1 text-sm font-medium leading-none">
+                Sources
+              </h4>
 
-              <Separator
-                orientation="horizontal"
-                className="mt-2"
-              />
+              <Separator orientation="horizontal" className="mt-2" />
             </div>
 
             <ul className="flex flex-col gap-4 p-4 py-0">
@@ -101,15 +96,13 @@ const DownloadDialog: FC<DownloadDialogProps> = ({ isReleased, itadData }) => {
 
                             <div className="flex items-center gap-1 text-xs text-slate-300">
                               <StarIcon className="w-3 h-3 stroke-primary group-hover:stroke-foreground" />
-                              {deal.historyLow.amount} {deal.historyLow.currency}
+                              {deal.historyLow.amount}{" "}
+                              {deal.historyLow.currency}
                             </div>
                           </div>
                         </button>
                       </TooltipTrigger>
-                      <TooltipContent
-                        asChild
-                        side="bottom"
-                      >
+                      <TooltipContent asChild side="bottom">
                         <div className="">{deal.url}</div>
                       </TooltipContent>
                     </Tooltip>
@@ -118,14 +111,16 @@ const DownloadDialog: FC<DownloadDialogProps> = ({ isReleased, itadData }) => {
               ) : (
                 <div className="flex flex-row items-center justify-center w-full gap-2">
                   <XCircle className="size-5" />
-                  <p className="text-sm text-slate-300">No source providers found</p>
+                  <p className="text-sm text-slate-300">
+                    No source providers found
+                  </p>
                 </div>
               )}
             </ul>
           </div>
         </ScrollArea>
 
-        <DialogFooter className="w-full">
+        {/* <DialogFooter className="w-full">
           <Button
             className="items-center w-full gap-2"
             type="submit"
@@ -134,7 +129,7 @@ const DownloadDialog: FC<DownloadDialogProps> = ({ isReleased, itadData }) => {
             Show All Source Providers
             <ChevronsRight className="mt-1 size-5 stroke-slate-300" />
           </Button>
-        </DialogFooter>
+        </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );
