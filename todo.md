@@ -23,3 +23,9 @@
 
 - [ ] Option to use an external torrent client instead of the built-in one
 - [ ] Enable/disable plugins
+- [ ] Only Download Torrent when vpn is active
+
+#### Screens
+
+- [ ] Downloads Screen
+  - [ ] Shadcn Chart for download speeds just like how steam does it
