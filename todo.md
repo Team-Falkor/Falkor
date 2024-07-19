@@ -38,3 +38,17 @@
 
 - [ ] Downloads Screen
   - [ ] Shadcn Chart for download speeds just like how steam does it
+
+#### Add games to steam (easy way instead of switching between desktop and gaming mode)
+
+- [ ] Add game to steam
+  - [ ] See if there is a way to add it to the start of the home screen
+- [ ] Option to auto add games to steam
+
+#### Other stores (epic, ubisoft, ea, etc, etc)
+
+- [ ] Epic
+- [ ] Ea
+- [ ] Ubisoft
+- [ ] Game Pass Streaming
+
