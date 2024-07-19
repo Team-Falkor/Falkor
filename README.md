@@ -70,10 +70,6 @@ That's it! Thank you for helping make Falkor accessible to more users.
 
 Thanks to everyone who helps us make this possible. A list of contributors can be found [here](https://github.com/Falkor-team/Falkor/graphs/contributors).
 
-## Contact
-
-Dive into the ultimate gaming experience with Falkor today!
-
 <br />
 
 # ❤️
