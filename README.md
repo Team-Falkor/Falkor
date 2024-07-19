@@ -1,3 +1,7 @@
+<div align="center">
+ <img alt="ollama" height="150px" src="./src-tauri/icons/icon.png">
+</div>
+
 # Falkor: Your Ultimate Gaming Hub
 
 Dive into Falkor, where you'll discover a vast selection of games coupled with community-driven enhancements. Experience seamless and secure gaming within a single, universal hub.
