@@ -1,5 +1,14 @@
 # Todo List
 
+#### Translations
+
+- [x] setup i18n
+- [x] Home Screen
+- [x] Info Screen
+- [x] My Games Screen
+- [x] Navigation SideBar
+- [ ] Settings Screen
+
 #### Plugin System: Diverse and Secure
 
 - [ ] Define class interfaces (all plugins should have `init` and `destroy` functions)

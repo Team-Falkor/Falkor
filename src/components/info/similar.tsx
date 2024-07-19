@@ -1,15 +1,21 @@
-import DefaultCard from '@/components/cards/defaultCard';
-import CarouselButton from '@/components/info/carouselButton';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import { FilterOutNonePcGames } from '@/utils';
-import { IGDBReturnDataType } from '@/utils/api/igdb/types';
-import { FC, useMemo } from 'react';
+import DefaultCard from "@/components/cards/defaultCard";
+import CarouselButton from "@/components/info/carouselButton";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { useLanguageContext } from "@/contexts/languageContext";
+import { FilterOutNonePcGames } from "@/utils";
+import { IGDBReturnDataType } from "@/utils/api/igdb/types";
+import { FC, useMemo } from "react";
 
 interface SimilarGamesProps {
-  data: IGDBReturnDataType['similar_games'];
+  data: IGDBReturnDataType["similar_games"];
 }
 
 const SimilarGames: FC<SimilarGamesProps> = ({ data }) => {
+  const { t } = useLanguageContext();
   const items = useMemo(() => {
     return FilterOutNonePcGames(data);
   }, [data]);
@@ -20,27 +26,27 @@ const SimilarGames: FC<SimilarGamesProps> = ({ data }) => {
     <div>
       <Carousel
         opts={{
-          align: 'start',
+          align: "start",
         }}
         className="w-full"
       >
         <div className="flex justify-between">
-          <h1 className="text-xl font-medium capitalize">You may also like</h1>
+          <h1 className="text-xl font-medium capitalize">
+            {t("you_may_also_like")}
+          </h1>
           <div>
             <CarouselButton direction="left" />
             <CarouselButton direction="right" />
           </div>
         </div>
+
         <CarouselContent>
           {items.map((game) => (
             <CarouselItem
               key={game.id}
               className="md:basis-[11%] basis-1/5 2xl:basis-[16.7%] xl:basis-[17.7%]"
             >
-              <DefaultCard
-                key={game.id}
-                {...game}
-              />
+              <DefaultCard key={game.id} {...game} />
             </CarouselItem>
           ))}
         </CarouselContent>

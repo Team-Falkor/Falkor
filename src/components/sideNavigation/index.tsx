@@ -15,6 +15,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useLanguageContext } from "@/contexts/languageContext";
 import useGeneralSetting from "@/hooks/useGeneralSetting";
 import { cn } from "@/lib/utils";
 import { useShouldUpdateGamesUi } from "@/stores";
@@ -23,6 +24,8 @@ import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 const SideNavigation = () => {
+  const { t } = useLanguageContext();
+
   const { settingsState } = useGeneralSetting<boolean>({
     key: SettingOption["use-bg-on-sidebar"],
   });
@@ -77,9 +80,7 @@ const SideNavigation = () => {
                   <img src={logo} className="size-9" />
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right">
-                Falkor The luck of the draw
-              </TooltipContent>
+              <TooltipContent side="right">{t("logo_hover")}</TooltipContent>
             </Tooltip>
           </div>
           <nav className="grid gap-2 p-2">
@@ -98,10 +99,18 @@ const SideNavigation = () => {
               <Search setOpen={setOpen} />
             </Popover>
 
-            <NavItem href="/" title="Home" icon={<HomeIcon />} />
+            <NavItem href="/" title={t("home")} icon={<HomeIcon />} />
 
-            <NavItem href="/libary" title="My Games" icon={<LibraryIcon />} />
-            <NavItem href="/settings" title="Settings" icon={<Settings2 />} />
+            <NavItem
+              href="/libary"
+              title={t("my_games")}
+              icon={<LibraryIcon />}
+            />
+            <NavItem
+              href="/settings"
+              title={t("settings")}
+              icon={<Settings2 />}
+            />
           </nav>
 
           <nav className="flex flex-col flex-1 gap-3 p-2 border-t border-b">

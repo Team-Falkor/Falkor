@@ -1,18 +1,22 @@
-import { Button, buttonVariants } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
-import { Link } from '@tanstack/react-router';
-import { ButtonHTMLAttributes, FunctionComponent } from 'react';
+import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
+import { ButtonHTMLAttributes, FunctionComponent } from "react";
 
 type NavItemProps =
   | {
       title: string;
       href: string;
       icon: JSX.Element;
-      type?: 'link';
+      type?: "link";
     }
   | ({
-      type: 'button';
+      type: "button";
       title: string;
       icon: JSX.Element;
       active?: boolean;
@@ -21,7 +25,7 @@ type NavItemProps =
 const NavItem: FunctionComponent<NavItemProps> = (props) => {
   const { icon, title, type } = props;
 
-  if (!type || type === 'link') {
+  if (!type || type === "link") {
     const { href } = props;
 
     return (
@@ -30,25 +34,22 @@ const NavItem: FunctionComponent<NavItemProps> = (props) => {
           <Link
             to={href}
             className={buttonVariants({
-              variant: 'ghost',
-              size: 'icon',
-              className: 'rounded-lg [&.active]:bg-muted',
+              variant: "ghost",
+              size: "icon",
+              className: "rounded-lg [&.active]:bg-muted",
             })}
           >
             <div className="[&>*]:size-5">{icon}</div>
           </Link>
         </TooltipTrigger>
-        <TooltipContent
-          side="right"
-          sideOffset={8}
-        >
+        <TooltipContent side="right" sideOffset={8}>
           {title}
         </TooltipContent>
       </Tooltip>
     );
   }
 
-  if (type === 'button') {
+  if (type === "button") {
     const { active, ...rest } = props;
     return (
       <Tooltip>
@@ -57,9 +58,9 @@ const NavItem: FunctionComponent<NavItemProps> = (props) => {
             variant="ghost"
             size="icon"
             className={cn([
-              'rounded-lg',
+              "rounded-lg",
               {
-                'bg-muted': active,
+                "bg-muted": active,
               },
             ])}
             {...rest}
@@ -67,10 +68,7 @@ const NavItem: FunctionComponent<NavItemProps> = (props) => {
             <div className="[&>*]:size-5">{icon}</div>
           </Button>
         </TooltipTrigger>
-        <TooltipContent
-          side="right"
-          sideOffset={8}
-        >
+        <TooltipContent side="right" sideOffset={8}>
           {title}
         </TooltipContent>
       </Tooltip>

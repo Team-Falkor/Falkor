@@ -1,16 +1,18 @@
-import SearchCard from '@/components/cards/searchCard';
-import { Input } from '@/components/ui/input';
-import { PopoverContent } from '@/components/ui/popover';
-import useDebounce from '@/hooks/useDebounce';
-import { igdb } from '@/utils';
-import { IGDBReturnDataType } from '@/utils/api/igdb/types';
-import { ShipWheel } from 'lucide-react';
-import { FC, useEffect, useState } from 'react';
+import SearchCard from "@/components/cards/searchCard";
+import { Input } from "@/components/ui/input";
+import { PopoverContent } from "@/components/ui/popover";
+import { useLanguageContext } from "@/contexts/languageContext";
+import useDebounce from "@/hooks/useDebounce";
+import { igdb } from "@/utils";
+import { IGDBReturnDataType } from "@/utils/api/igdb/types";
+import { ShipWheel } from "lucide-react";
+import { FC, useEffect, useState } from "react";
 
 const Search: FC<{
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ setOpen }) => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const { t } = useLanguageContext();
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const [data, setData] = useState<IGDBReturnDataType[] | null>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -33,14 +35,11 @@ const Search: FC<{
   }, [debouncedSearchTerm]);
 
   return (
-    <PopoverContent
-      side="right"
-      className="p-0 w-80"
-    >
+    <PopoverContent side="right" className="p-0 w-80">
       <div className="grid gap-4">
         <div className="w-full px-4 pt-4">
           <Input
-            placeholder="What game are you looking for?"
+            placeholder={t("search_placeholder")}
             className="w-full"
             onChange={(e) => setSearchTerm(e.target.value)}
             value={searchTerm}
@@ -56,11 +55,7 @@ const Search: FC<{
           {!loading &&
             !!data?.length &&
             data.map((game) => (
-              <SearchCard
-                {...game}
-                key={game.id}
-                setOpen={setOpen}
-              />
+              <SearchCard {...game} key={game.id} setOpen={setOpen} />
             ))}
         </div>
       </div>

@@ -1,20 +1,32 @@
-import AccountsSettings from '@/components/setting/tabs/accounts';
-import DeveloperSettings from '@/components/setting/tabs/developer';
-import GeneralSetting from '@/components/setting/tabs/general';
-import MiscellaneousSettings from '@/components/setting/tabs/miscellaneous';
-import Plugins from '@/components/setting/tabs/plugins';
-import TorrentSettings from '@/components/setting/tabs/torrent';
-import SettingTab from '@/components/settings/settingTab';
-import { Button } from '@/components/ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import MainContainer from '@/containers/mainContainer';
-import { createLazyFileRoute } from '@tanstack/react-router';
-import { open } from '@tauri-apps/api/shell';
-import { Blocks, Code2, Coffee, Cog, FileCog2, Settings2, UserCog } from 'lucide-react';
-import { useState } from 'react';
-import { FaDiscord, FaGithub } from 'react-icons/fa6';
+import MainContainer from "@/components/containers/mainContainer";
+import AccountsSettings from "@/components/setting/tabs/accounts";
+import DeveloperSettings from "@/components/setting/tabs/developer";
+import GeneralSetting from "@/components/setting/tabs/general";
+import MiscellaneousSettings from "@/components/setting/tabs/miscellaneous";
+import Plugins from "@/components/setting/tabs/plugins";
+import TorrentSettings from "@/components/setting/tabs/torrent";
+import SettingTab from "@/components/settings/settingTab";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { createLazyFileRoute } from "@tanstack/react-router";
+import { open } from "@tauri-apps/api/shell";
+import {
+  Blocks,
+  Code2,
+  Coffee,
+  Cog,
+  FileCog2,
+  Settings2,
+  UserCog,
+} from "lucide-react";
+import { useState } from "react";
+import { FaDiscord, FaGithub } from "react-icons/fa6";
 
-export const Route = createLazyFileRoute('/settings')({
+export const Route = createLazyFileRoute("/settings")({
   component: RouteComponent,
 });
 
@@ -82,7 +94,9 @@ function RouteComponent() {
               <Tooltip>
                 <TooltipTrigger>
                   <Button
-                    onClick={() => openLink('https://github.com/team-falkor/falkor')}
+                    onClick={() =>
+                      openLink("https://github.com/team-falkor/falkor")
+                    }
                     variant="ghost"
                     size="icon"
                   >
@@ -95,7 +109,9 @@ function RouteComponent() {
               <Tooltip>
                 <TooltipTrigger>
                   <Button
-                    onClick={() => openLink('https://github.com/team-falkor/falkor')}
+                    onClick={() =>
+                      openLink("https://github.com/team-falkor/falkor")
+                    }
                     variant="ghost"
                     size="icon"
                   >
@@ -109,7 +125,7 @@ function RouteComponent() {
             <Tooltip>
               <TooltipTrigger>
                 <Button
-                  onClick={() => openLink('https://ko-fi.com/tdanks2000')}
+                  onClick={() => openLink("https://ko-fi.com/tdanks2000")}
                   variant="ghost"
                   size="icon"
                 >
@@ -122,35 +138,17 @@ function RouteComponent() {
         </div>
 
         <div className="flex flex-col w-full h-full overflow-hidden">
-          <GeneralSetting
-            currentIndex={currentTab}
-            index={0}
-          />
+          <GeneralSetting currentIndex={currentTab} index={0} />
 
-          <TorrentSettings
-            currentIndex={currentTab}
-            index={1}
-          />
+          <TorrentSettings currentIndex={currentTab} index={1} />
 
-          <AccountsSettings
-            currentIndex={currentTab}
-            index={2}
-          />
+          <AccountsSettings currentIndex={currentTab} index={2} />
 
-          <Plugins
-            currentIndex={currentTab}
-            index={3}
-          />
+          <Plugins currentIndex={currentTab} index={3} />
 
-          <DeveloperSettings
-            currentIndex={currentTab}
-            index={4}
-          />
+          <DeveloperSettings currentIndex={currentTab} index={4} />
 
-          <MiscellaneousSettings
-            currentIndex={currentTab}
-            index={5}
-          />
+          <MiscellaneousSettings currentIndex={currentTab} index={5} />
         </div>
       </div>
     </MainContainer>

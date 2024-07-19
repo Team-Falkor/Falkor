@@ -1,10 +1,23 @@
-import IGDBImage from '@/components/IGDBImage';
-import { buttonVariants } from '@/components/ui/button';
-import { IGDBReturnDataType, IGDBReturnDataTypeCover } from '@/utils/api/igdb/types';
-import { Link } from '@tanstack/react-router';
-import { FC, useEffect, useState } from 'react';
+import IGDBImage from "@/components/IGDBImage";
+import { buttonVariants } from "@/components/ui/button";
+import { useLanguageContext } from "@/contexts/languageContext";
+import {
+  IGDBReturnDataType,
+  IGDBReturnDataTypeCover,
+} from "@/utils/api/igdb/types";
+import { Link } from "@tanstack/react-router";
+import { FC, useEffect, useState } from "react";
 
-const BannerCard: FC<IGDBReturnDataType> = ({ screenshots: ss, cover, name, summary, storyline, id }) => {
+const BannerCard: FC<IGDBReturnDataType> = ({
+  screenshots: ss,
+  cover,
+  name,
+  summary,
+  storyline,
+  id,
+}) => {
+  const { t } = useLanguageContext();
+
   const [screenshots, setScreenshots] = useState<IGDBReturnDataTypeCover[]>();
 
   let start = 1;
@@ -33,7 +46,9 @@ const BannerCard: FC<IGDBReturnDataType> = ({ screenshots: ss, cover, name, summ
 
       <div className="relative z-10 flex flex-col justify-end w-full h-full gap-1 p-4">
         <h1 className="text-2xl font-bold text-white">{name}</h1>
-        <p className="text-sm text-slate-300 line-clamp-4">{storyline ?? summary ?? '??'}</p>
+        <p className="text-sm text-slate-300 line-clamp-4">
+          {storyline ?? summary ?? "??"}
+        </p>
         <div className="flex flex-row justify-end">
           <div className="flex flex-row items-end justify-between w-full">
             <div className="flex flex-row justify-start gap-3 mt-3">
@@ -48,13 +63,15 @@ const BannerCard: FC<IGDBReturnDataType> = ({ screenshots: ss, cover, name, summ
               ))}
             </div>
             <div className="flex flex-row gap-3">
-              <Link className={buttonVariants({ variant: 'secondary' })}>Trailer</Link>
+              <Link className={buttonVariants({ variant: "secondary" })}>
+                {t("trailer")}
+              </Link>
               <Link
-                className={buttonVariants({ variant: 'secondary' })}
+                className={buttonVariants({ variant: "secondary" })}
                 to="/info/$id"
                 params={{ id: id.toString() }}
               >
-                More Info
+                {t("more_info")}
               </Link>
             </div>
           </div>

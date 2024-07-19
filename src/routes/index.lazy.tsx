@@ -1,8 +1,9 @@
 import Banner from "@/components/banner";
+import MainContainer from "@/components/containers/mainContainer";
+import RowContainer from "@/components/containers/row";
 import CarouselButton from "@/components/info/carouselButton";
 import { Carousel } from "@/components/ui/carousel";
-import MainContainer from "@/containers/mainContainer";
-import RowContainer from "@/containers/row";
+import { useLanguageContext } from "@/contexts/languageContext";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import Autoplay from "embla-carousel-autoplay";
 import { useRef } from "react";
@@ -12,6 +13,7 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
+  const { t } = useLanguageContext();
   const autoplay = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
 
   return (
@@ -23,7 +25,7 @@ function Index() {
           onMouseLeave={autoplay.current.reset}
         >
           <h3 className="pb-2 font-mono text-lg font-medium leading-6 flex justify-between items-center mb-2">
-            Top Rated
+            {t("top_rated")}
             <div>
               <CarouselButton direction="left" />
               <CarouselButton direction="right" />
@@ -33,9 +35,12 @@ function Index() {
         </Carousel>
       </div>
 
-      <RowContainer title="New Releases" dataToFetch="newReleases" />
+      <RowContainer title={t("new_releases")} dataToFetch="newReleases" />
 
-      <RowContainer title="Most Anticipated" dataToFetch="mostAnticipated" />
+      <RowContainer
+        title={t("most_anticipated")}
+        dataToFetch="mostAnticipated"
+      />
     </MainContainer>
   );
 }
