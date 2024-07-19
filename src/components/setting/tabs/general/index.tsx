@@ -1,10 +1,7 @@
-import { SettingOption } from "@/@types";
 import Setting from "@/components/setting/settingComponent";
 import Container from "@/components/setting/tabs/container";
 import SettingTitle from "@/components/setting/title";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import useGeneralSetting from "@/hooks/useGeneralSetting";
+import { useLanguageContext } from "@/contexts/languageContext";
 import { FC } from "react";
 
 interface GeneralSettingProps {
@@ -13,37 +10,25 @@ interface GeneralSettingProps {
 }
 
 const GeneralSetting: FC<GeneralSettingProps> = ({ index, currentIndex }) => {
-  const { settingsState, setSetting } = useGeneralSetting<boolean>({
-    key: SettingOption["use-bg-on-sidebar"],
-    default: true,
-  });
+  const { t } = useLanguageContext();
 
   if (index !== currentIndex) return null;
 
   return (
     <div>
-      <SettingTitle>General Settings</SettingTitle>
+      <SettingTitle>{t("Settings.titles.general")}</SettingTitle>
 
       <Container>
         <Setting
           settingType="button"
-          settingDescription="Change the local used for ITAD prices"
-          settingTitle="Change Local"
-          buttonLabel="Change Local"
+          settingDescription={t("Settings.change_local.description")}
+          settingTitle={t("Settings.change_local.title")}
+          buttonLabel={t("Settings.change_local.title")}
           onClick={() => {}}
           buttonType="secondary"
         />
 
         {/* SHOW BG ON SIDEBAR */}
-        <div className="flex items-center space-x-2 mt-4">
-          <Switch
-            id="use-bg-on-sidebar"
-            checked={settingsState ?? false}
-            onCheckedChange={setSetting}
-          />
-
-          <Label htmlFor="use-bg-on-sidebar">Use background on sidebar</Label>
-        </div>
       </Container>
     </div>
   );

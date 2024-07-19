@@ -12,6 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useLanguageContext } from "@/contexts/languageContext";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import { open } from "@tauri-apps/api/shell";
 import {
@@ -31,6 +32,7 @@ export const Route = createLazyFileRoute("/settings")({
 });
 
 function RouteComponent() {
+  const { t } = useLanguageContext();
   const [currentTab, setCurrentTab] = useState(0);
 
   const openLink = (url: string) => {
@@ -48,42 +50,42 @@ function RouteComponent() {
           <nav className="flex-1 mt-5 space-y-3">
             <SettingTab
               icon={<Cog />}
-              title="General"
+              title={t("general")}
               isActive={currentTab === 0}
               onClick={() => setCurrentTab(0)}
             />
 
             <SettingTab
               icon={<FileCog2 />}
-              title="Torrent Configuration"
+              title={t("torrent_configuration")}
               isActive={currentTab === 1}
               onClick={() => setCurrentTab(1)}
             />
 
             <SettingTab
               icon={<UserCog />}
-              title="Accounts"
+              title={t("accounts")}
               isActive={currentTab === 2}
               onClick={() => setCurrentTab(2)}
             />
 
             <SettingTab
               icon={<Blocks />}
-              title="Plugins"
+              title={t("plugins")}
               isActive={currentTab === 3}
               onClick={() => setCurrentTab(3)}
             />
 
             <SettingTab
               icon={<Code2 />}
-              title="Developer"
+              title={t("developer")}
               isActive={currentTab === 4}
               onClick={() => setCurrentTab(4)}
             />
 
             <SettingTab
               icon={<Settings2 />}
-              title="Miscellaneous"
+              title={t("miscellaneous")}
               isActive={currentTab === 5}
               onClick={() => setCurrentTab(5)}
             />
@@ -103,7 +105,7 @@ function RouteComponent() {
                     <FaDiscord size={24} />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Join the Discord!</TooltipContent>
+                <TooltipContent>{t("join_the_discord")}</TooltipContent>
               </Tooltip>
 
               <Tooltip>
@@ -118,7 +120,7 @@ function RouteComponent() {
                     <FaGithub size={24} />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Star us on GitHub!</TooltipContent>
+                <TooltipContent>{t("star_us_on_github")}</TooltipContent>
               </Tooltip>
             </div>
 
@@ -132,7 +134,7 @@ function RouteComponent() {
                   <Coffee />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Buy me a coffee!</TooltipContent>
+              <TooltipContent>{t("buy_me_a_coffee")}</TooltipContent>
             </Tooltip>
           </div>
         </div>

@@ -1,9 +1,15 @@
-import SettingItemTitle from '@/components/setting/settingComponent/settingType/title';
-import Container from '@/components/setting/tabs/container';
-import TorrentDownloadPath from '@/components/setting/tabs/torrent/downloadPath';
-import SettingTitle from '@/components/setting/title';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { FC } from 'react';
+import SettingItemTitle from "@/components/setting/settingComponent/settingType/title";
+import Container from "@/components/setting/tabs/container";
+import TorrentDownloadPath from "@/components/setting/tabs/torrent/downloadPath";
+import SettingTitle from "@/components/setting/title";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useLanguageContext } from "@/contexts/languageContext";
+import { FC } from "react";
 
 interface TorrentSettingProps {
   index: number;
@@ -11,18 +17,22 @@ interface TorrentSettingProps {
 }
 
 const TorrentSettings: FC<TorrentSettingProps> = ({ index, currentIndex }) => {
+  const { t } = useLanguageContext();
+
   if (index !== currentIndex) return null;
 
   return (
     <div>
-      <SettingTitle>Torrent Configuration Settings</SettingTitle>
+      <SettingTitle>{t("Settings.titles.torrent")}</SettingTitle>
 
       <Container>
         <div>
           <div className="flex flex-col gap-2">
             <SettingItemTitle
-              settingTitle="Download Path"
-              settingDescription="Set the download path for torrents"
+              settingTitle={t("Settings.torrent_download_path.title")}
+              settingDescription={t(
+                "Settings.torrent_download_path.description"
+              )}
             />
             <TorrentDownloadPath />
           </div>
@@ -31,7 +41,9 @@ const TorrentSettings: FC<TorrentSettingProps> = ({ index, currentIndex }) => {
         <Accordion type="multiple">
           <AccordionItem value="dht">
             <AccordionTrigger className="hover:no-underline">
-              <h1 className="text-xl font-bold">DHT Configuration</h1>
+              <h1 className="text-xl font-bold">
+                {t("Settings.torrent_dht_configuration.title")}
+              </h1>
             </AccordionTrigger>
             <AccordionContent>
               <div>T</div>
