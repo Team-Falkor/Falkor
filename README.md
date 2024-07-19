@@ -1,5 +1,5 @@
 <div align="center">
- <img alt="ollama" height="150px" src="./src-tauri/icons/icon.png">
+ <img alt="falkor" height="150px" src="./src-tauri/icons/icon.png">
 </div>
 
 # Falkor: Your Ultimate Gaming Hub
