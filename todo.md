@@ -7,7 +7,7 @@
 - [x] Info Screen
 - [x] My Games Screen
 - [x] Navigation SideBar
-- [ ] Settings Screen
+- [x] Settings Screen
 
 #### Plugin System: Diverse and Secure
 
