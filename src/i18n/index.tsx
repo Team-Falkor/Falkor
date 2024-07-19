@@ -1,4 +1,5 @@
-import i18next from "i18next";
+import i18next, { Resource } from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
 //Import all translation files
@@ -15,7 +16,12 @@ import Spanish from "./translations/spanish.json";
 import Thai from "./translations/thai.json";
 import Vietnamese from "./translations/vietnamese.json";
 
-const resources = {
+/**
+ * Resources for i18n
+ * Add all translation files here
+ * Fallback language is english
+ */
+const resources: Resource = {
   en: { translation: English },
   es: { translation: Spanish },
   fr: { translation: French },
@@ -30,9 +36,15 @@ const resources = {
   pt: { translation: Portuguese },
 };
 
-i18next.use(initReactI18next).init({
-  resources,
-  lng: "en", //default language
-});
+i18next
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .init({
+    resources, // Add all translation files here
+    fallbackLng: "en", //Fallback if language is not available
+    interpolation: {
+      escapeValue: false,
+    },
+  });
 
 export default i18next;
