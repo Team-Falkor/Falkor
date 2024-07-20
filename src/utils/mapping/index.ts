@@ -1,11 +1,11 @@
-import Fuse from 'fuse.js';
+import Fuse from "fuse.js";
 
 interface ExtraData {
   genres?: string[];
   release_date?: string;
   platforms?: string[];
 }
-export type SearchingFor = 'title' | 'year' | 'format';
+export type SearchingFor = "title" | "year" | "format";
 
 type Matches<T> = T & { distance_from: number };
 
@@ -23,18 +23,22 @@ export class Mapping<T extends { name: string }> {
 
   matches: Set<Matches<T>> = new Set();
 
-  constructor(game_title: string, array_to_search: T[], extra_data?: ExtraData) {
+  constructor(
+    game_title: string,
+    array_to_search: T[],
+    extra_data?: ExtraData
+  ) {
     this.game_title = game_title;
     this.array_to_search = array_to_search;
     this.extra_data = extra_data;
   }
 
-  async search(searching_for: SearchingFor = 'title') {
+  async search(searching_for: SearchingFor = "title") {
     switch (searching_for) {
-      case 'title':
+      case "title":
       default:
         const fuse = new Fuse(this.array_to_search, {
-          keys: ['title', 'name'],
+          keys: ["title", "name", "game_name"],
           distance: this.distance,
           threshold: this.match_percentage / 100,
         });

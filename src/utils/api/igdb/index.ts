@@ -1,14 +1,19 @@
-import { searchEasterEggs } from '@/utils/api/igdb/helpers';
-import { ApiResponse, IGDBReturnDataType, InfoReturn } from '@/utils/api/igdb/types';
-import { FilterOutNonePcGames } from '@/utils/utils';
-import { http } from '@tauri-apps/api';
-import { Body } from '@tauri-apps/api/http';
+import { searchEasterEggs } from "@/utils/api/igdb/helpers";
+import {
+  ApiResponse,
+  IGDBReturnDataType,
+  InfoReturn,
+} from "@/utils/api/igdb/types";
+import { FilterOutNonePcGames } from "@/utils/utils";
+import { Body } from "@tauri-apps/api/http";
+import { BaseApi } from "../baseApi";
+import { defaultFields } from "./constants";
 
 const { VITE_TWITCH_CLIENT_ID, VITE_TWITCH_CLIENT_SECRET } = import.meta.env;
 
-export class IGDB {
-  private clientId: string = VITE_TWITCH_CLIENT_ID ?? '';
-  private clientSecret: string = VITE_TWITCH_CLIENT_SECRET ?? '';
+export class IGDB extends BaseApi {
+  private clientId: string = VITE_TWITCH_CLIENT_ID ?? "";
+  private clientSecret: string = VITE_TWITCH_CLIENT_SECRET ?? "";
   private clientAccessToken?: string;
   private tokenExpiration: number = 0;
 
@@ -16,7 +21,7 @@ export class IGDB {
     const response = await (
       await fetch(
         `https://id.twitch.tv/oauth2/token?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`,
-        { method: 'POST' },
+        { method: "POST" }
       )
     ).json();
 
@@ -27,14 +32,18 @@ export class IGDB {
     return this.clientAccessToken;
   }
 
-  checkAndRenewToken = async () => !!(Date.now() >= this.tokenExpiration - 100) && (await this.getAccessToken());
+  checkAndRenewToken = async () =>
+    !!(Date.now() >= this.tokenExpiration - 100) &&
+    (await this.getAccessToken());
 
   async search(query: string): Promise<IGDBReturnDataType[]> {
     let realQuery = query;
-    const findEasterEgg = searchEasterEggs.find((egg) => egg.name === query.toLowerCase());
+    const findEasterEgg = searchEasterEggs.find(
+      (egg) => egg.name === query.toLowerCase()
+    );
     if (findEasterEgg) realQuery = findEasterEgg.query;
 
-    const data = await this.makeReq<IGDBReturnDataType[]>('games', {
+    const data = await this.request<IGDBReturnDataType[]>("games", {
       search: realQuery,
     });
 
@@ -43,18 +52,18 @@ export class IGDB {
   }
 
   async info(id: string): Promise<InfoReturn> {
-    const igdbData = await this.makeReq<IGDBReturnDataType[]>('games', {
+    const igdbData = await this.request<IGDBReturnDataType[]>("games", {
       where: `id = ${id}`,
-      limit: '1',
+      limit: "1",
     });
 
     const item = igdbData[0];
 
     const find_steam_id = (item.websites || []).find((site) =>
-      site.url.startsWith('https://store.steampowered.com/app'),
+      site.url.startsWith("https://store.steampowered.com/app")
     );
 
-    const steam_id = find_steam_id?.url.split('/').pop();
+    const steam_id = find_steam_id?.url.split("/").pop();
 
     const steam = steam_id ? await this.steamStoreInfo(steam_id) : null;
 
@@ -68,29 +77,29 @@ export class IGDB {
 
   async mostAnticipated(): Promise<IGDBReturnDataType[]> {
     const DateNow = (new Date().getTime() / 1000).toFixed();
-    return await this.makeReq<IGDBReturnDataType[]>('games', {
-      sort: 'hypes desc',
+    return await this.request<IGDBReturnDataType[]>("games", {
+      sort: "hypes desc",
       where: `platforms.abbreviation = "PC" & hypes != n & first_release_date > ${DateNow}`,
     });
   }
 
   async newReleases(): Promise<IGDBReturnDataType[]> {
     const DateNow = (new Date().getTime() / 1000).toFixed();
-    return await this.makeReq<IGDBReturnDataType[]>('games', {
-      sort: 'first_release_date desc',
+    return await this.request<IGDBReturnDataType[]>("games", {
+      sort: "first_release_date desc",
       where: `platforms.abbreviation = "PC" & hypes != n & first_release_date < ${DateNow}`,
     });
   }
 
   async topRated(): Promise<IGDBReturnDataType[]> {
-    return await this.makeReq<IGDBReturnDataType[]>('games', {
-      sort: 'total_rating desc',
+    return await this.request<IGDBReturnDataType[]>("games", {
+      sort: "total_rating desc",
       where: `platforms.abbreviation = "PC" & total_rating != n & total_rating > 85 & hypes > 2 & rating_count > 5 & version_parent = null & category = 0`,
     });
   }
 
-  private async makeReq<T = unknown>(
-    reqUrl: 'games',
+  private async request<T = unknown>(
+    reqUrl: "games",
     options: {
       fields?: string[];
       where?: string;
@@ -98,40 +107,15 @@ export class IGDB {
       sort?: string;
       limit?: string;
       offset?: string;
-    },
+    }
   ): Promise<T> {
     try {
       await this.checkAndRenewToken();
 
-      const defaultFields = [
-        '*',
-        'screenshots.*',
-        'cover.*',
-        'rating',
-        'release_dates.*',
-        'aggregated_rating',
-        'platforms.*',
-        'platforms.websites.*',
-        'bundles.*',
-        'involved_companies.*',
-        'involved_companies.company.*',
-        'game_engines.*',
-        'websites.*',
-        'videos.*',
-        'genres.*',
-        'similar_games.*',
-        'similar_games.screenshots.*',
-        'similar_games.cover.*',
-        'similar_games.genres.*',
-        'similar_games.release_dates.*',
-        'similar_games.platforms.*',
-        'artworks.*',
-      ];
-
       // Construct the request body
-      let requestBody = '';
+      let requestBody = "";
       const fields = options.fields || [];
-      requestBody += `fields ${[...fields, ...defaultFields].join(',')};`;
+      requestBody += `fields ${[...fields, ...defaultFields].join(",")};`;
 
       if (options.sort) {
         requestBody += ` sort ${options.sort};`;
@@ -148,10 +132,10 @@ export class IGDB {
 
       // Add other options as needed
 
-      const res = await http.fetch<T>(`https://api.igdb.com/v4/${reqUrl}`, {
-        method: 'POST',
+      const res = await this.makeReq<T>(`https://api.igdb.com/v4/${reqUrl}`, {
+        method: "POST",
         headers: {
-          'Client-ID': this.clientId,
+          "Client-ID": this.clientId,
           Authorization: `Bearer ${this.clientAccessToken}`,
         },
         body: requestBody ? Body.text(requestBody) : undefined,
@@ -167,7 +151,7 @@ export class IGDB {
   async steamStoreInfo(appid: string) {
     try {
       const url = `https://store.steampowered.com/api/appdetails/?appids=${appid}`;
-      const res = await http.fetch<ApiResponse>(url);
+      const res = await this.makeReq<ApiResponse>(url);
 
       return res.data[appid];
     } catch (error) {

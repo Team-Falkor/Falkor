@@ -1,11 +1,11 @@
-import { InfoItadProps, InfoProps } from '@/@types';
-import IGDBImage from '@/components/IGDBImage';
-import CollectionDropdown from '@/components/info/Collection';
-import DownloadDialog from '@/components/info/downloadDialog';
-import QuickInfo from '@/components/info/quickInfo';
-import { Skeleton } from '@/components/ui/skeleton';
-import { IGDBReturnDataType } from '@/utils/api/igdb/types';
-import { FC } from 'react';
+import { InfoItadProps, InfoProps } from "@/@types";
+import IGDBImage from "@/components/IGDBImage";
+import CollectionDropdown from "@/components/info/Collection";
+import DownloadDialog from "@/components/info/downloadDialog";
+import QuickInfo from "@/components/info/quickInfo";
+import { Skeleton } from "@/components/ui/skeleton";
+import { IGDBReturnDataType } from "@/utils/api/igdb/types";
+import { FC } from "react";
 
 type InfoTopProps = InfoProps &
   InfoItadProps & {
@@ -14,7 +14,15 @@ type InfoTopProps = InfoProps &
   };
 
 const InfoTop: FC<InfoTopProps> = (props) => {
-  const { data, isReleased, isPending, error, itadData, itadError, itadPending } = props;
+  const {
+    data,
+    isReleased,
+    isPending,
+    error,
+    itadData,
+    itadError,
+    itadPending,
+  } = props;
 
   if (error) return null;
 
@@ -24,10 +32,10 @@ const InfoTop: FC<InfoTopProps> = (props) => {
         {isPending && <Skeleton className="rounded-lg w-[230px] h-80" />}
         {!isPending && (
           <IGDBImage
-            imageId={data!.cover?.image_id ?? ''}
+            imageId={data!.cover?.image_id ?? ""}
             alt={data!.name}
             className="object-cover rounded-lg h-80"
-            imageSize={'cover_big'}
+            imageSize={"cover_big"}
           />
         )}
       </div>
@@ -35,7 +43,9 @@ const InfoTop: FC<InfoTopProps> = (props) => {
       <div className="w-full mt-16 sm:min-w-0 sm:flex-1 sm:items-center sm:justify-start sm:pb-1">
         <section className="flex items-end justify-between w-full gap-3">
           {isPending && <Skeleton className="w-56 h-10" />}
-          {!isPending && <h1 className="text-2xl font-bold truncate">{data!.name}</h1>}
+          {!isPending && (
+            <h1 className="text-2xl font-bold truncate">{data!.name}</h1>
+          )}
 
           <div className="flex justify-end gap-4">
             {isPending && <Skeleton className="w-32 h-10" />}
