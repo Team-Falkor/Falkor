@@ -22,23 +22,8 @@ function Info() {
   const { isPending, error, data } = useQuery({
     queryKey: ["igdb", "info", id],
     queryFn: async () => await igdb.info(id),
+    enabled: !!id,
   });
-
-  const fetcherITAD = async () => {
-    if (!data) return;
-
-    const itadSearch = await itad.gameSearch(data?.name);
-
-    const mapping = new Mapping<any>(data?.name, itadSearch);
-    const result = await mapping.compare();
-
-    if (result) {
-      const local = await getUserCountry();
-      const itadPrices = await itad.gamePrices([result.id], local);
-
-      return itadPrices;
-    }
-  };
 
   const releaseDate = data
     ? data.release_dates?.find((item) => item.platform === 6) ??
@@ -48,43 +33,43 @@ function Info() {
     ? false
     : !releaseDate?.date || releaseDate.date < Date.now() / 1000;
 
-  const {
-    data: itadData,
-    isPending: itadPending,
-    error: itadError,
-  } = useQuery({
+  const itadQuery = useQuery({
     queryKey: ["itad", "prices", id],
-    queryFn: fetcherITAD,
-    enabled: !!data && !isPending && isReleased,
+    queryFn: async () => {
+      if (!data) return;
+
+      const itadSearch = await itad.gameSearch(data?.name);
+      const mapping = new Mapping<any>(data?.name, itadSearch);
+      const result = await mapping.compare();
+
+      if (result) {
+        const local = await getUserCountry();
+        const itadPrices = await itad.gamePrices([result.id], local);
+        return itadPrices;
+      }
+    },
+    enabled: !!id && isReleased,
   });
 
-  const fetcherHLTB = async () => {
-    if (!data) return;
-    const hltb = new HLTB();
-
-    const hltbSearch = await hltb.search(data?.name);
-
-    if (!hltbSearch) return;
-
-    const mapping = new Mapping<any>(data?.name, hltbSearch.data);
-    const result = await mapping.compare();
-
-    if (result) {
-      return result as HLTBSearchGameData;
-    }
-  };
-
-  const {
-    data: hltbData,
-    isPending: hltbPending,
-    error: hltbError,
-  } = useQuery({
+  const hltbQuery = useQuery({
     queryKey: ["hlrb", "search", id],
-    queryFn: fetcherHLTB,
-    enabled: !!data && !isPending && isReleased,
+    queryFn: async () => {
+      if (!data) return;
+      const hltb = new HLTB();
+      const hltbSearch = await hltb.search(data?.name);
+
+      if (!hltbSearch) return;
+
+      const mapping = new Mapping<any>(data?.name, hltbSearch.data);
+      const result = await mapping.compare();
+
+      if (result) {
+        return result as HLTBSearchGameData;
+      }
+    },
+    enabled: !!id && isReleased,
   });
 
-  // if (isPending) return <div>Loading...</div>;
   if (error) return null;
 
   return (
@@ -96,7 +81,7 @@ function Info() {
       </div>
 
       <div>
-        {!!isPending ? (
+        {isPending ? (
           <Skeleton className="w-full rounded-lg h-96" />
         ) : (
           <div className="sticky top-0 left-0 right-0 w-full overflow-hidden rounded-b-lg h-96">
@@ -120,9 +105,9 @@ function Info() {
           isReleased={isReleased}
           error={error}
           isPending={isPending}
-          itadData={itadData}
-          itadPending={itadPending}
-          itadError={itadError}
+          itadData={itadQuery.data}
+          itadPending={itadQuery.isPending}
+          itadError={itadQuery.error}
         />
 
         {!isPending && (
@@ -131,9 +116,9 @@ function Info() {
               {...data}
               error={error}
               isPending={isPending}
-              hltbData={hltbData}
-              hltbPending={hltbPending}
-              hltbError={hltbError}
+              hltbData={hltbQuery.data}
+              hltbPending={hltbQuery.isPending}
+              hltbError={hltbQuery.error}
             />
 
             <InfoBottom {...data} error={error} isPending={isPending} />

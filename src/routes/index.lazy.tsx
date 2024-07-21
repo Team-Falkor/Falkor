@@ -14,7 +14,7 @@ export const Route = createLazyFileRoute("/")({
 
 function Index() {
   const { t } = useLanguageContext();
-  const autoplay = useRef(Autoplay({ delay: 2000, stopOnInteraction: true }));
+  const autoplay = useRef(Autoplay({ delay: 5000, stopOnInteraction: true }));
 
   return (
     <MainContainer>
