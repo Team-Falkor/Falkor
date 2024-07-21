@@ -108,18 +108,14 @@ function Info() {
           itadData={itadQuery.data}
           itadPending={itadQuery.isPending}
           itadError={itadQuery.error}
+          hltbData={hltbQuery.data}
+          hltbPending={hltbQuery.isPending}
+          hltbError={hltbQuery.error}
         />
 
         {!isPending && (
           <>
-            <InfoMiddle
-              {...data}
-              error={error}
-              isPending={isPending}
-              hltbData={hltbQuery.data}
-              hltbPending={hltbQuery.isPending}
-              hltbError={hltbQuery.error}
-            />
+            <InfoMiddle {...data} error={error} isPending={isPending} />
 
             <InfoBottom {...data} error={error} isPending={isPending} />
           </>

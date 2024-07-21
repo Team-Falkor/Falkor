@@ -1,4 +1,4 @@
-import { InfoItadProps, InfoProps } from "@/@types";
+import { infoHLTBProps, InfoItadProps, InfoProps } from "@/@types";
 import IGDBImage from "@/components/IGDBImage";
 import CollectionDropdown from "@/components/info/Collection";
 import DownloadDialog from "@/components/info/downloadDialog";
@@ -6,6 +6,7 @@ import QuickInfo from "@/components/info/quickInfo";
 import { Skeleton } from "@/components/ui/skeleton";
 import { IGDBReturnDataType } from "@/utils/api/igdb/types";
 import { FC } from "react";
+import HLTBComponent from "../hltb";
 
 type InfoTopProps = InfoProps &
   InfoItadProps & {
@@ -13,7 +14,7 @@ type InfoTopProps = InfoProps &
     isReleased: boolean;
   };
 
-const InfoTop: FC<InfoTopProps> = (props) => {
+const InfoTop: FC<InfoTopProps & infoHLTBProps> = (props) => {
   const {
     data,
     isReleased,
@@ -22,6 +23,9 @@ const InfoTop: FC<InfoTopProps> = (props) => {
     itadData,
     itadError,
     itadPending,
+    hltbData,
+    hltbError,
+    hltbPending,
   } = props;
 
   if (error) return null;
@@ -64,13 +68,25 @@ const InfoTop: FC<InfoTopProps> = (props) => {
           </div>
         </section>
 
-        <div className="mt-5">
+        <div className="mt-5 w-full h-full gap-3.5 justify-between flex flex-col">
           <QuickInfo
             data={data}
             error={error}
             isPending={isPending}
             isReleased={isReleased}
           />
+
+          {!!hltbData && !hltbError && !hltbPending && (
+            <div className="w-full ">
+              <HLTBComponent
+                times={[
+                  Math.floor(hltbData.comp_main / 60 / 60),
+                  Math.floor(hltbData.comp_plus / 60 / 60),
+                  Math.floor(hltbData.comp_100 / 60 / 60),
+                ]}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
